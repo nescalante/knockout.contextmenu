@@ -1,0 +1,64 @@
+.contextmenu.hasChecks ul > li
+{
+  padding-left:20px;
+}
+
+.contextmenu ul > li.checked
+{
+	background:url(images/ico-okOn.png) 5px no-repeat;
+}
+
+.contextmenu ul > li.checked:hover
+{
+	background:#DDD url(images/ico-okOn.png) 5px no-repeat;
+}
+
+.contextmenu
+{
+	position:absolute;
+	z-index:1030;
+	font-size:11px;
+	visibility:visible;
+	border:1px solid #DDD;
+	background:#FFF;
+	display:none;
+	margin:1px;
+	padding:0;
+}
+
+.contextmenu ul > li
+{
+	list-style-type:none;
+	cursor:pointer;
+	font-size:small;
+    font-weight: normal;
+	font-family:Arial, Helvetica, sans-serif;
+	margin:0;
+	padding:6px;
+    white-space: nowrap;
+    text-align: left;
+    border-bottom: 0px;
+    color: #000;
+    border-bottom: 0px;
+    height: inherit;
+    vertical-align: middle;
+}
+
+.contextmenu ul 
+{
+    line-height: 16px;
+}
+
+.contextmenu ul > li.separator
+{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+    cursor: default;
+}
+
+.contextmenu ul > li:hover {
+    background-color: #DDD;
+}
