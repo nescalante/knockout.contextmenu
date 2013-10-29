@@ -14,9 +14,15 @@ You can also bind a boolean observable to the context menu, that will work as a 
 
 You can also set dynamic 'text' and 'visible' values binding an object with the following values instead of a method:
 
+*url* (optional): Direct access to an URL.
+
 *text* (optional): Set menu text.
+
 *visible* (optional): Show/hide item (result must be boolean).
-*action* (mandatory): Item method.
+
+*action* (mandatory if not url defined): Item method.
+
+*disabled* (optional): Disable menu item.
 
 Example:
 
