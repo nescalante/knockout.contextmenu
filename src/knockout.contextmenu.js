@@ -1,125 +1,200 @@
-ko.bindingHandlers.contextmenu = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        var eventsToHandle = valueAccessor() || {},
-            allBindings = allBindingsAccessor();
+(function () {
+var currentMenu;
 
-        var openMenu = function (event) {
-            var removeAndUnbind = function () {
-                $(".contextmenu").remove();
-                $(document.body).unbind("click.contextmenu");
+if (typeof ko !== 'undefined' && typeof document !== 'undefined') {
+    bindContextMenu(ko, document);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = bindContextMenu;
+}
+
+function bindContextMenu(ko, document) {
+    ko.bindingHandlers.contextMenu = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var eventsToHandle = valueAccessor() || {},
+                allBindings = allBindingsAccessor(),
+                currentOnClick = document.onclick,
+                defaultClass = allBindings.contextMenuClass || 'context-menu';
+
+            // bind on click? bind on context click?
+            if (allBindings.bindMenuOnClick) {
+                ko.utils.registerEventHandler(element, 'click', openMenu);
+            } else {
+                ko.utils.registerEventHandler(element, 'contextmenu', openMenu);
+            }
+
+            document.onclick = function (event) { 
+                currentOnClick && currentOnClick(event);
+                hideCurrentMenu();
             };
 
-            // hide other context menu opened
-            removeAndUnbind();
+            function hideCurrentMenu() {
+                if (currentMenu && currentMenu.parentNode) {
+                    currentMenu.parentNode.removeChild(currentMenu);
+                }
 
-            // close context menu on body click
-            $(document.body).bind("click.contextmenu", removeAndUnbind);
+                currentMenu = null;
+            }
 
-            var contextmenu = $('<div class="contextmenu"><ul></ul></div>'),
-                hasChecks = false;
+            function openMenu(event) {
+                var menu = getMenu(event);
 
-            for (var eventNameOutsideClosure in eventsToHandle) {
-                var insideEvent = valueAccessor()[eventNameOutsideClosure] || {},
-                    html = eventsToHandle[eventNameOutsideClosure].separator == true ? "" :
-                        ko.isObservable(insideEvent.text) ? insideEvent.text() :
-                        insideEvent.text ? insideEvent.text :
-                        eventNameOutsideClosure,
-                    url = eventsToHandle[eventNameOutsideClosure].url,
+                if (event) {
+                    // set location
+                    menu.style.top = event.pageY;
+                    menu.style.left = event.pageX;
+                }
+
+                document.body.appendChild(menu);
+
+                // prevent default
+                event.preventDefault();
+            }
+                
+            function getMenu(event) {
+                var menu;
+                    hasChecks = false
+                    items = [],
+                    actions = [];
+
+                for (var eventNameOutsideClosure in eventsToHandle) {
+                    (function (eventName) {
+                        var item = getMenuProperties(eventName),
+                            classes = [];
+
+                        if (item.isVisible) {
+                            hasChecks = hasChecks || item.isBoolean;
+
+                            // set css classes
+                            item.isChecked && classes.push('checked');
+                            item.isDisabled && classes.push('disabled');
+                            item.isSeparator && classes.push('separator');
+                            item.url && classes.push('with-url');
+
+                            items.push('<li class="' + classes.join(' ') + '">' + item.text + '</li>');
+                            actions.push(item.action);
+                        }
+                    })(eventNameOutsideClosure);
+                }
+
+                if (items.length) {
+                    menu = document.createElement('div');
+                    menu.className = defaultClass;
+
+                    // you may need padding to menus that has checks
+                    menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' + items.join('') + '</ul>';
+
+                    // map items to actions
+                    items.forEach(function (item, index) {
+                        ko.utils.registerEventHandler(menu.children[index], 'click', function (event) {
+                            actions[index](viewModel, event);
+                        });
+                    });
+                }
+
+                currentMenu = menu;
+
+                return menu;
+            }
+
+            function getMenuProperties(eventName) {
+                var text = '',
+                    item = eventsToHandle[eventName] || {},
+                    url = (ko.isObservable(item.url) ? item.url() : item.url),
+                    isVisible = item.visible == null ||
+                        (ko.isObservable(item.visible) && item.visible()) ||
+                        !!item.visible,
                     isChecked = false,
-                    visible = insideEvent.visible == null ||
-                        (ko.isObservable(insideEvent.visible) && insideEvent.visible()) ||
-                        insideEvent.visible == true,
-                    enabled = insideEvent.disabled == null ||
-                        (ko.isObservable(insideEvent.disabled) && !insideEvent.disabled()) ||
-                        insideEvent.disabled == false;
+                    isEnabled = item.disabled == null ||
+                        (ko.isObservable(item.disabled) && !item.disabled()) ||
+                        item.disabled == false ||
+                        (ko.isObservable(item.enabled) && item.enabled()) ||
+                        !!item.enabled,
+                    isBoolean = false,
+                    isDisabled = !isEnabled,
+                    isSeparator = !!eventsToHandle[eventName].separator;
 
-                if (visible) {
-                    if (eventsToHandle[eventNameOutsideClosure].url) {
-                        html = "<a href=\"" + (ko.isObservable(url) ? url() : url) + "\">" + html + "</a>";
+                if (!isSeparator) {
+                    text = ko.isObservable(item.text) ? item.text() : item.text;
+
+                    if (!text) {
+                        text = eventName;
                     }
 
-                    if ((ko.isObservable(insideEvent) && typeof insideEvent() == "boolean") ||
-                        (ko.isObservable(insideEvent.action) && typeof insideEvent.action() == "boolean")) {
-                        hasChecks = true;
+                    if (url) {
+                        text = '<a href="' + url + '">' + text + '</a>';
+                    }
+                }
 
-                        if ((insideEvent.action && insideEvent.action()) ||
-                            (typeof insideEvent == "function" && insideEvent())) {
-                            isChecked = true;
+                if ((ko.isObservable(item) && typeof item() == "boolean") ||
+                    (ko.isObservable(item.action) && typeof item.action() == "boolean")) {
+                    isBoolean = true;
+
+                    if ((item.action && item.action()) ||
+                        (typeof item == "function" && item())) {
+                        isChecked = true;
+                    }
+                }
+
+                return {
+                    text: text,
+                    url: url,
+                    isVisible: isVisible,
+                    isChecked: isChecked,
+                    isEnabled: isEnabled,
+                    isDisabled: isDisabled,
+                    isBoolean: isBoolean,
+                    isSeparator: isSeparator,
+                    action: action
+                };
+
+                function action(viewModel, event) {
+                    var error = eventName + ' option must have an action or an url.';
+
+                    if (isDisabled) {
+                        return false;
+                    }
+
+                    // check if option is a boolean
+                    if (ko.isObservable(item) && typeof item() == "boolean") {
+                        item(!item());
+
+                        return item();
+                    }
+
+                    // is an object? well, lets check it properties
+                    else if (typeof item == 'object') {
+                        // check if has an action or if its a separator
+                        if (!item.action && !url && !isSeparator) {
+                            throw error;
+                        }
+                        
+                        // evaluate action
+                        else if (item.action) {
+                            if (ko.isObservable(item.action) && typeof item.action() == "boolean") {
+                                item.action(!item.action());
+
+                                return item.action();
+                            }
+                            else {
+                                return item.action(viewModel, event);
+                            }
                         }
                     }
 
-                    $("<li>")
-                        .html(html)
-                        .addClass(eventsToHandle[eventNameOutsideClosure].separator == true ? "separator" : "")
-                        .addClass(url ? "with-url" : "")
-                        .addClass(isChecked ? "checked" : "")
-                        .addClass(!enabled ? "disabled" : "")
-                        .data("event", insideEvent)
-                        .click(function () {
-                            var insideEvent = $(this).data("event"),
-                                enabled = insideEvent.disabled == null ||
-                                    (ko.isObservable(insideEvent.disabled) && !insideEvent.disabled()) ||
-                                    insideEvent.disabled == false;
+                    // its not an observable, should be a function
+                    else if (typeof item == 'function') {
+                        return item(viewModel, event);
+                    }
 
-                            if (enabled) {
-                                // check if option is a boolean
-                                if (ko.isObservable(insideEvent) && typeof insideEvent() == "boolean") {
-                                    insideEvent(!insideEvent());
-                                }
-                                else if (typeof insideEvent == 'object') {
-                                    // check if has an action or if its a separator
-                                    if (insideEvent.action === undefined && insideEvent.url === undefined && insideEvent.separator != true) {
-                                        throw eventNameOutsideClosure + ' option must have an action or an url.';
-                                    }
-                                        // evaluate action
-                                    else if (insideEvent.action) {
-                                        if (ko.isObservable(insideEvent.action) && typeof insideEvent.action() == "boolean") {
-                                            insideEvent.action(!insideEvent.action());
-                                        }
-                                        else {
-                                            var result = insideEvent.action(viewModel, event);
-
-                                            if (url) {
-                                                return result;
-                                            }
-                                        }
-                                    }
-                                }
-                                else if (typeof insideEvent == 'function') {
-                                    insideEvent(viewModel, event);
-                                }
-                                else {
-                                    throw eventNameOutsideClosure + ' option must have an action or an url.'
-                                }
-                            }
-                            else {
-                                return false;
-                            }
-                        })
-                        .appendTo(contextmenu.find("ul"));
+                    // nothing to do with this
+                    else {
+                        throw error;
+                    }
                 }
             }
-
-            // add padding to menus that have checks
-            if (hasChecks) {
-                contextmenu.addClass("hasChecks");
-            }
-
-            // set location
-            if (contextmenu.find("li").length > 0) {
-                contextmenu
-                    .css({ top: event.pageY, left: event.pageX })
-                    .appendTo(document.body)
-                    .show();
-
-                return false;
-            }
-        };
-
-        if (allBindings.bindMenuOnClick === true) {
-            ko.utils.registerEventHandler(element, "click", openMenu);
-        } else {
-            ko.utils.registerEventHandler(element, "contextmenu", openMenu);
         }
-    }
-};
+    };
+}
+})();

@@ -1,0 +1,27 @@
+{
+  "name": "knockout.contextmenu",
+  "version": "0.0.1",
+  "description": "knockout contextmenu extension",
+  "main": "src/knockout.contextmenu.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nescalante/knockout.contextmenu.git"
+  },
+  "keywords": [
+    "knockout",
+    "contextmenu",
+    "menu"
+  ],
+  "author": "Nicolás Escalante",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nescalante/knockout.contextmenu/issues"
+  },
+  "homepage": "https://github.com/nescalante/knockout.contextmenu",
+  "devDependencies": {
+    "knockout": "~3.1.0"
+  }
+}
