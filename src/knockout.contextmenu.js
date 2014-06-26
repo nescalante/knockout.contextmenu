@@ -1,8 +1,6 @@
 (function () {
 'use strict';
 
-var currentMenu;
-
 if (typeof ko !== 'undefined' && typeof document !== 'undefined') {
     bindContextMenu(ko, document);
 }
@@ -12,11 +10,30 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 function bindContextMenu(ko, document) {
+    var currentMenu,
+        currentOnClick = document.onclick,
+        elementMapping = [];
+    
+    document.onclick = function (event) { 
+        if (!event.defaultPrevented) {
+            currentOnClick && currentOnClick(event);
+            hideCurrentMenu();
+        }
+    };
+
     ko.bindingHandlers.contextMenu = {
+        getMenuFor: function (element, event) {
+            var i = 0;
+
+            for (; i < elementMapping.length; i++) {
+                if (elementMapping[i].element === element) {
+                    return elementMapping[i].get(event);
+                }
+            }
+        },
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var eventsToHandle = valueAccessor() || {},
                 allBindings = allBindingsAccessor(),
-                currentOnClick = document.onclick,
                 defaultClass = allBindings.contextMenuClass || 'context-menu';
 
             // bind on click? bind on context click?
@@ -26,23 +43,13 @@ function bindContextMenu(ko, document) {
                 ko.utils.registerEventHandler(element, 'contextmenu', openMenu);
             }
 
-            document.onclick = function (event) { 
-                if (!event.defaultPrevented) {
-                    currentOnClick && currentOnClick(event);
-                    hideCurrentMenu();
-                }
-            };
-
-            function hideCurrentMenu() {
-                if (currentMenu && currentMenu.parentNode) {
-                    currentMenu.parentNode.removeChild(currentMenu);
-                }
-
-                currentMenu = null;
-            }
+            elementMapping.push({
+                element: element,
+                get: getMenu
+            });
 
             function openMenu(event) {
-                var menu = getMenu(event);
+                var menu = getMenu(event).element;
 
                 hideCurrentMenu();
 
@@ -55,17 +62,21 @@ function bindContextMenu(ko, document) {
                 // if not body, put it somewhere
                 (document.body || document).appendChild(menu);
 
+                // replace current menu with the recently created
                 currentMenu = menu;
 
                 // prevent default
-                event.preventDefault();
+                event && event.preventDefault();
+
+                return menu;
             }
-                
+
             function getMenu(event) {
                 var menu,
                     hasChecks = false,
                     items = [],
-                    actions = [];
+                    actions = [],
+                    result = [];
 
                 for (var eventNameOutsideClosure in eventsToHandle) {
                     (function (eventName) {
@@ -81,9 +92,11 @@ function bindContextMenu(ko, document) {
                             item.isSeparator && classes.push('separator');
                             item.url && classes.push('with-url');
 
-                            items.push('<li class="' + classes.join(' ') + '">' + item.text + '</li>');
+                            items.push('<li class="' + classes.join(' ') + '">' + item.html + '</li>');
                             actions.push(item.action);
                         }
+
+                        result.push(item);
                     })(eventNameOutsideClosure);
                 }
 
@@ -99,18 +112,22 @@ function bindContextMenu(ko, document) {
                         ko.utils.registerEventHandler(menu.children[0].children[index], 'click', function (event) {
                             var result = actions[index](viewModel, event);
 
-                            if (!result) {
+                            if (!result && event) {
                                 event.preventDefault();
                             }
                         });
                     });
                 }
 
-                return menu;
+                return {
+                    element: menu,
+                    items: result
+                }
             }
 
             function getMenuProperties(eventName) {
                 var text = '',
+                    html = '',
                     item = eventsToHandle[eventName] || {},
                     url = (ko.isObservable(item.url) ? item.url() : item.url),
                     isVisible = item.visible == null ||
@@ -134,7 +151,10 @@ function bindContextMenu(ko, document) {
                     }
 
                     if (url) {
-                        text = '<a href="' + url + '">' + text + '</a>';
+                        html = '<a href="' + url + '">' + text + '</a>';
+                    }
+                    else {
+                        html = text;
                     }
                 }
 
@@ -149,6 +169,7 @@ function bindContextMenu(ko, document) {
                 }
 
                 return {
+                    html: html,
                     text: text,
                     url: url,
                     isVisible: isVisible,
@@ -205,5 +226,13 @@ function bindContextMenu(ko, document) {
             }
         }
     };
+
+    function hideCurrentMenu() {
+        if (currentMenu && currentMenu.parentNode) {
+            currentMenu.parentNode.removeChild(currentMenu);
+        }
+
+        currentMenu = null;
+    }
 }
 })();
