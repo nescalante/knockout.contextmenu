@@ -27,8 +27,10 @@ function bindContextMenu(ko, document) {
             }
 
             document.onclick = function (event) { 
-                currentOnClick && currentOnClick(event);
-                hideCurrentMenu();
+                if (!event.defaultPrevented) {
+                    currentOnClick && currentOnClick(event);
+                    hideCurrentMenu();
+                }
             };
 
             function hideCurrentMenu() {
@@ -42,6 +44,8 @@ function bindContextMenu(ko, document) {
             function openMenu(event) {
                 var menu = getMenu(event);
 
+                hideCurrentMenu();
+
                 if (event) {
                     // set location
                     menu.style.top = event.pageY;
@@ -50,6 +54,8 @@ function bindContextMenu(ko, document) {
 
                 // if not body, put it somewhere
                 (document.body || document).appendChild(menu);
+
+                currentMenu = menu;
 
                 // prevent default
                 event.preventDefault();
@@ -91,12 +97,14 @@ function bindContextMenu(ko, document) {
                     // map items to actions
                     items.forEach(function (item, index) {
                         ko.utils.registerEventHandler(menu.children[0].children[index], 'click', function (event) {
-                            actions[index](viewModel, event);
+                            var result = actions[index](viewModel, event);
+
+                            if (!result) {
+                                event.preventDefault();
+                            }
                         });
                     });
                 }
-
-                currentMenu = menu;
 
                 return menu;
             }
@@ -162,8 +170,6 @@ function bindContextMenu(ko, document) {
                     // check if option is a boolean
                     if (ko.isObservable(item) && typeof item() == "boolean") {
                         item(!item());
-
-                        return item();
                     }
 
                     // is an object? well, lets check it properties
@@ -177,24 +183,24 @@ function bindContextMenu(ko, document) {
                         else if (item.action) {
                             if (ko.isObservable(item.action) && typeof item.action() == "boolean") {
                                 item.action(!item.action());
-
-                                return item.action();
                             }
                             else {
-                                return item.action(viewModel, event);
+                                item.action(viewModel, event);
                             }
                         }
                     }
 
                     // its not an observable, should be a function
                     else if (typeof item == 'function') {
-                        return item(viewModel, event);
+                        item(viewModel, event);
                     }
 
                     // nothing to do with this
                     else {
                         throw error;
                     }
+
+                    return true;
                 }
             }
         }

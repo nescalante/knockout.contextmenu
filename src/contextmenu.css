@@ -41,7 +41,7 @@
 }
 
 .context-menu ul {
-    line-height: 16px;
+    line-height: 24px;
     padding: 0;
     margin: 0;
     border: 1px solid #DDD;
@@ -49,7 +49,8 @@
 }
 
 .context-menu ul > li.separator {
-    padding: 4px 0;
+    margin: 4px 0;
+    padding: 0;
     border-bottom: 1px solid #ccc;
     cursor: default;
 }
