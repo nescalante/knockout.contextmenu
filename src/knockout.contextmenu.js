@@ -1,4 +1,6 @@
 (function () {
+'use strict';
+
 var currentMenu;
 
 if (typeof ko !== 'undefined' && typeof document !== 'undefined') {
@@ -46,15 +48,16 @@ function bindContextMenu(ko, document) {
                     menu.style.left = event.pageX;
                 }
 
-                document.body.appendChild(menu);
+                // if not body, put it somewhere
+                (document.body || document).appendChild(menu);
 
                 // prevent default
                 event.preventDefault();
             }
                 
             function getMenu(event) {
-                var menu;
-                    hasChecks = false
+                var menu,
+                    hasChecks = false,
                     items = [],
                     actions = [];
 
@@ -87,7 +90,7 @@ function bindContextMenu(ko, document) {
 
                     // map items to actions
                     items.forEach(function (item, index) {
-                        ko.utils.registerEventHandler(menu.children[index], 'click', function (event) {
+                        ko.utils.registerEventHandler(menu.children[0].children[index], 'click', function (event) {
                             actions[index](viewModel, event);
                         });
                     });

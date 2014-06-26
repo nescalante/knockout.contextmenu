@@ -1,23 +1,14 @@
-.context-menu.has-checks ul {
-    padding: 0px 0 0 0px;
-}
-
-.context-menu ul > li.checked {
-    background: url(images/ico-okOn.png) 5px no-repeat;
-}
-
-.context-menu ul > li.checked:hover {
-    background: #eee url(images/ico-okOn.png) 5px no-repeat;
+.context-menu ul > li.checked:before {
+    content: "\2713";
+    position: absolute;
+    left: 7px;
 }
 
 .context-menu {
     position: absolute;
     z-index: 1030;
-    font-size: 11px;
-    visibility: visible;
     background: #FFF;
-    display: none;
-    margin: 1px;
+    margin: 0;
     padding: 0;
 }
 
@@ -37,16 +28,12 @@
     z-index: 1031;
     list-style-type: none;
     cursor: pointer;
-    font: normal 11px Arial, Helvetica, sans-serif;
+    font: normal 12px Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 4px 20px;
     white-space: nowrap;
     text-align: left;
-    border-bottom: 0px;
     color: #000;
-    border-bottom: 0px;
-    height: inherit;
-    vertical-align: middle;
 }
 
 .context-menu ul > li.with-url {
@@ -55,15 +42,20 @@
 
 .context-menu ul {
     line-height: 16px;
+    padding: 0;
+    margin: 0;
     border: 1px solid #DDD;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .context-menu ul > li.separator {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 4px 0;
     border-bottom: 1px solid #ccc;
     cursor: default;
+}
+
+.context-menu ul > li.separator:hover {
+    background-color: #fff;
 }
 
 .context-menu ul > li:hover {

@@ -1,12 +1,11 @@
 <html>
     <head>
-        <script src="../node_modules/knockout/build/output/knockout-latest.js"></script>
+        <link href="../src/contextmenu.css" rel="stylesheet" type="text/css">
+        <script src="../node_modules/knockout/build/output/knockout-latest.debug.js"></script>
         <script src="../src/knockout.contextmenu.js"></script>
     </head>
     <body>
-        <p data-bind="contextMenu: { test: function () { alert('so test'); } }">test me</p>    
+        <p data-bind="contextMenu: menu">test me</p>    
+        <script src="../test/init.js"></script>
     </body>
-    <script>
-        ko.applyBindings();
-    </script>
 </html>
