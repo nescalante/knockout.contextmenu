@@ -3,11 +3,11 @@ knockout.contextmenu
 
 To bind a context menu to an element:
 
-    <td data-bind="contextmenu: { 'Option 1': $root.rootMethod, 'Option 2': itemMethod, 'Option 3': anotherMethod }">
+    <td data-bind="contextMenu: { 'Option 1': $root.rootMethod, 'Option 2': itemMethod, 'Option 3': anotherMethod }">
 
 You can also bind a boolean observable to the context menu, that will work as a 'check':
 
-    contextmenu: { 
+    contextMenu: { 
         Boolean: someObservableBoolean, 
         'One method': $root.test 
     }
@@ -26,14 +26,14 @@ You can also set dynamic 'text' and 'visible' values binding an object with the 
 
 Example:
 
-    contextmenu: { 
+    contextMenu: { 
         'Complex item': { text: $root.someObservableText(), visible: someMethod() == '1', action: $root.someAction }, 
         'One method': $root.test
     }
 
 To create a separator between two menus, just create an object with the property `separator` with `true`:
 
-    contextmenu: { 
+    contextMenu: { 
         'Some item': methodOne,
         'Separator': { separator: true, visible: someMethod() },
         'Just another item': methodTwo
