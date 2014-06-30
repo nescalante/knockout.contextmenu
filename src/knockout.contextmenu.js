@@ -1,11 +1,11 @@
 (function () {
 'use strict';
 
-if (typeof ko !== 'undefined' && typeof document !== 'undefined') {
+if (typeof ko !== undefined + '' && typeof document !== undefined + '') {
     bindContextMenu(ko, document);
 }
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== undefined + '' && module.exports) {
     module.exports = bindContextMenu;
 }
 
@@ -18,7 +18,7 @@ function bindContextMenu(ko, document) {
         if (!event.defaultPrevented) {
             if (currentOnClick) {
                 currentOnClick(event);
-            } 
+            }
 
             hideCurrentMenu();
         }
@@ -250,4 +250,4 @@ function bindContextMenu(ko, document) {
         currentMenu = null;
     }
 }
-})();
+})(undefined);

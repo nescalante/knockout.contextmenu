@@ -12,6 +12,11 @@ module.exports = function (grunt) {
             test: ['test/*.js']
         },
         uglify: {
+            options: {
+                banner: '// <%= pkg.name %> v<%= pkg.version %>' +
+                    '\n// <%= pkg.author.name %> - <%= pkg.author.email %>' +
+                    '\n// License: <%= pkg.license %>\n\n'
+            },
             src: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': ['<%= pkg.main %>']
