@@ -150,7 +150,7 @@ function bindContextMenu(ko, document) {
                         (ko.isObservable(item.visible) && item.visible()) ||
                         !!item.visible,
                     isChecked = false,
-                    isEnabled = !item.disabled
+                    isEnabled = !item.disabled ||
                         (ko.isObservable(item.disabled) && !item.disabled()) ||
                         (ko.isObservable(item.enabled) && item.enabled()) ||
                         !!item.enabled,

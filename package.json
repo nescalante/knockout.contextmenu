@@ -17,7 +17,10 @@
     "binding",
     "extension"
   ],
-  "author": "Nicolás Escalante",
+  "author": {
+    "name": "Nicolás Escalante",
+    "email": "nlante@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nescalante/knockout.contextmenu/issues"
@@ -30,6 +33,7 @@
     "grunt-contrib-uglify": "~0.5.0",
     "jshint-stylish": "~0.2.0",
     "load-grunt-tasks": "~0.6.0",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jasmine": "~0.6.5"
   }
 }

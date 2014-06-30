@@ -1,0 +1,16 @@
+{ 
+  "node"    : true,
+  "globals" : {
+    "ko"         : false,
+    "it"         : false,
+    "xit"        : false,
+    "describe"   : false,
+    "xdescribe"  : false,
+    "beforeEach" : false,
+    "afterEach"  : false,
+    "expect"     : false,
+    "console"    : false,
+    "document"   : false,
+    "spyOn"      : false
+  }
+}

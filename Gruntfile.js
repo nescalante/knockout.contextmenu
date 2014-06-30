@@ -23,13 +23,24 @@ module.exports = function (grunt) {
                 src: '<%= pkg.main %>',
                 dest: 'dist/<%= pkg.name %>.js'
             }
+        },
+        jasmine: {
+            test: {
+                src: '<%= pkg.main %>',
+                options: {
+                    vendor: [
+                        'node_modules/knockout/build/output/knockout-latest.js'
+                    ],
+                    specs: 'test/*.spec.js'
+                }
+            }
         }
     });
 
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('lint', ['jshint']);
-    grunt.registerTask('test', []);
+    grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
     grunt.registerTask('build', ['lint', 'test', 'copy', 'uglify']);
 };
