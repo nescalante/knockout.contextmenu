@@ -106,7 +106,13 @@ function bindContextMenu(ko, document) {
 
                 return {
                     element: menu,
-                    items: result
+                    items: result,
+                    open: openMenu,
+                    hide: function () {
+                        if (menu && menu.parentNode) {
+                            menu.parentNode.removeChild(menu);
+                        }
+                    }
                 };
 
                 function pushItem(eventName) {
