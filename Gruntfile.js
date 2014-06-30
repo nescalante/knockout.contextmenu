@@ -31,7 +31,7 @@ module.exports = function (grunt) {
                     vendor: [
                         'node_modules/knockout/build/output/knockout-latest.js'
                     ],
-                    specs: 'test/*.spec.js'
+                    specs: 'test/*.js'
                 }
             }
         }
