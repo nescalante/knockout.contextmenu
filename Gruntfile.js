@@ -20,14 +20,18 @@ module.exports = function (grunt) {
             },
             src: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= pkg.main %>']
+                    'dist/js/<%= pkg.name %>.min.js': ['<%= pkg.main %>']
                 }
             }
         },
         copy: {
             src: {
                 src: '<%= pkg.main %>',
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'dist/js/<%= pkg.name %>.js'
+            },
+            css: {
+                src: 'src/contextmenu.css',
+                dest: 'dist/css/contextmenu.css'
             }
         },
         jasmine: {

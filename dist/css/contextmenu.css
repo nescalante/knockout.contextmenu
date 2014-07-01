@@ -1,0 +1,64 @@
+.context-menu ul > li.checked:before {
+    content: "\2713";
+    position: absolute;
+    left: 7px;
+}
+
+.context-menu {
+    position: absolute;
+    z-index: 1030;
+    background: #FFF;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu ul > li a {
+    text-decoration: none;
+    color: #000;
+    padding: 4px 20px;
+    display: block;
+}
+
+.context-menu ul > li.disabled, .context-menu ul > li.disabled a {
+    color: #666;
+    cursor: default;
+}
+
+.context-menu ul > li {
+    z-index: 1031;
+    list-style-type: none;
+    cursor: pointer;
+    font: normal 12px Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 4px 20px;
+    white-space: nowrap;
+    text-align: left;
+    color: #000;
+}
+
+.context-menu ul > li.with-url {
+    padding: 0;
+}
+
+.context-menu ul {
+    line-height: 24px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #DDD;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.context-menu ul > li.separator {
+    margin: 4px 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+    cursor: default;
+}
+
+.context-menu ul > li.separator:hover {
+    background-color: #fff;
+}
+
+.context-menu ul > li:hover {
+    background-color: #eee;
+}
