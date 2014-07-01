@@ -9,7 +9,8 @@ module.exports = function (grunt) {
                 jshintrc: true
             },
             src: ['<%= pkg.main %>'],
-            test: ['test/*.js']
+            test: ['test/*.js'],
+            grunt: ['Gruntfile.js']
         },
         uglify: {
             options: {
