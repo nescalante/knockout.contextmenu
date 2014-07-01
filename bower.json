@@ -1,0 +1,26 @@
+{
+  "name": "knockout.contextmenu",
+  "version": "0.1.2",
+  "homepage": "https://github.com/nescalante/knockout.contextmenu",
+  "authors": [
+    "Nicolás Escalante <nlante@gmail.com>"
+  ],
+  "description": "Knockout contextual menu binding",
+  "main": "src/knockout.contextmenu.js",
+  "keywords": [
+    "contextmenu",
+    "menu",
+    "knockout",
+    "binding",
+    "extension"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "test",
+    ".travis.yml",
+    "Gruntfile.js",
+    ".jshintrc",
+    "README.md"
+  ]
+}
