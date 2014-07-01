@@ -1,4 +1,4 @@
-(function () {
+(function (undefined) {
 'use strict';
 
 if (typeof ko !== undefined + '' && typeof document !== undefined + '') {
@@ -77,23 +77,24 @@ function bindContextMenu(ko, document) {
             function getMenu(event) {
                 var menu,
                     hasChecks = false,
-                    items = [],
+                    elements = [],
                     actions = [],
-                    result = [];
+                    items = [],
+                    result;
 
                 for (var eventNameOutsideClosure in eventsToHandle) {
                     pushItem(eventNameOutsideClosure);
                 }
 
-                if (items.length) {
+                if (elements.length) {
                     menu = document.createElement('div');
                     menu.className = defaultClass;
 
                     // you may need padding to menus that has checks
-                    menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' + items.join('') + '</ul>';
+                    menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' + elements.join('') + '</ul>';
 
                     // map items to actions
-                    items.forEach(function (item, index) {
+                    elements.forEach(function (item, index) {
                         ko.utils.registerEventHandler(menu.children[0].children[index], 'click', function (event) {
                             var result = actions[index](viewModel, event);
 
@@ -106,7 +107,7 @@ function bindContextMenu(ko, document) {
 
                 return {
                     element: menu,
-                    items: result,
+                    items: items,
                     open: openMenu,
                     hide: function () {
                         if (menu && menu.parentNode) {
@@ -139,11 +140,11 @@ function bindContextMenu(ko, document) {
                             classes.push('with-url');
                         }
 
-                        items.push('<li class="' + classes.join(' ') + '">' + item.html + '</li>');
+                        elements.push('<li class="' + classes.join(' ') + '">' + item.html + '</li>');
                         actions.push(item.action);
                     }
 
-                    result.push(item);
+                    items.push(item);
                 }
             }
 
@@ -256,4 +257,4 @@ function bindContextMenu(ko, document) {
         currentMenu = null;
     }
 }
-})(undefined);
+})();

@@ -34,7 +34,7 @@ module.exports = function (grunt) {
                 src: '<%= pkg.main %>',
                 options: {
                     vendor: [
-                        'node_modules/knockout/build/output/knockout-latest.js'
+                        'node_modules/knockout/build/output/knockout-latest.debug.js'
                     ],
                     specs: 'test/*.js'
                 }

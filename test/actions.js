@@ -1,15 +1,13 @@
 'use strict';
 
-describe('menu', function () {
-    var contextMenu = ko.bindingHandlers.contextMenu,
-        elements = [];
+var contextMenu = ko.bindingHandlers.contextMenu,
+    elements = [];
 
-    // remove that element and clean knockout context
+describe('menu basics', function () {
+    // remove elements and clean knockout context
     afterEach(function () {
         elements.forEach(function (item) {
             document.body.removeChild(item);
-
-            // clean knockout context
             ko.cleanNode(item);
         });
 
@@ -26,39 +24,48 @@ describe('menu', function () {
         expect(!!source.items).toEqual(true);
     });
 
-    it('should have two items created', function () {
-        // try to apply menu to knockout context
+    it('should open menu on context menu event', function () {
         var source = applyMenu({
-            oneItem: function () { },
-            twoItems: ko.observable(false)
+            itemOne: function () { },
+            itemTwo: ko.observable(false)
         });
 
-        // has something, for now no matter what
+        ko.utils.triggerEvent(source.element, 'contextmenu');
+
+        // has two items
         expect(source.items.length).toEqual(2);
+
+        // the element is in the body
+        expect(source.element.parentNode).toEqual(document.body);
     });
-
-    function applyMenu(menu, options, element) {
-        if (!element) {
-            element = createMenu(options);
-        }
-
-        // initialize knockout context
-        ko.applyBindings({
-            menu: menu
-        }, element);
-
-        return contextMenu.getMenuFor(element);
-    }
-
-    function createMenu(options) {
-        var json = JSON.stringify(options),
-            element;
-
-        element = document.createElement('div');
-        element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));
-        document.body.appendChild(element);
-        elements.push(element);
-
-        return element;
-    }
 });
+
+function applyMenu(menu, options, element) {
+    var source;
+
+    if (!element) {
+        element = createMenu(options);
+    }
+
+    // initialize knockout context
+    ko.applyBindings({
+        menu: menu
+    }, element);
+
+    source = contextMenu.getMenuFor(element);
+    source.element = element;
+
+    return source;
+}
+
+function createMenu(options) {
+    var json = JSON.stringify(options),
+        element;
+
+    element = document.createElement('div');
+    element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));
+    document.body.appendChild(element);
+    elements.push(element);
+
+    return element;
+}
