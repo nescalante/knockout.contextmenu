@@ -1,5 +1,4 @@
-knockout.contextmenu
-====================
+# knockout.contextmenu [![Build Status](https://travis-ci.org/nescalante/knockout.contextmenu.svg?branch=master)](https://travis-ci.org/nescalante/knockout.contextmenu)
 
 To bind a context menu to an element:
 
