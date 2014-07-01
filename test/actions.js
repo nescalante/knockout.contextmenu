@@ -14,29 +14,31 @@ describe('menu basics', function () {
         elements = [];
     });
 
-    it('should create a menu on that element', function () {
-        // try to apply menu to knockout context
-        var source = applyMenu({
-            oneItem: function () { }
-        });
-
-        // has something, for now no matter what
-        expect(!!source.items).toEqual(true);
-    });
-
     it('should open menu on context menu event', function () {
         var source = applyMenu({
-            itemOne: function () { },
-            itemTwo: ko.observable(false)
-        });
+                oneItem: function () { }
+            }),
+            element;
 
         ko.utils.triggerEvent(source.element, 'contextmenu');
 
-        // has two items
-        expect(source.items.length).toEqual(2);
+        element = contextMenu.getMenuFor(source.element).element;
 
         // the element is in the body
-        expect(source.element.parentNode).toEqual(document.body);
+        expect(element.parentNode).toEqual(document.body);
+    });
+
+    it('should open menu on "open" event', function () {
+        var source = applyMenu({
+                oneItem: function () { }
+            }),
+            element;
+
+        contextMenu.openMenuFor(source.element);
+        element = contextMenu.getMenuFor(source.element).element;
+
+        // the element is in the body
+        expect(element.parentNode).toEqual(document.body);
     });
 });
 
@@ -53,9 +55,11 @@ function applyMenu(menu, options, element) {
     }, element);
 
     source = contextMenu.getMenuFor(element);
-    source.element = element;
 
-    return source;
+    return {
+        menu: source,
+        element: element
+    };
 }
 
 function createMenu(options) {

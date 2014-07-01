@@ -26,18 +26,24 @@ function bindContextMenu(ko, document) {
 
     ko.bindingHandlers.contextMenu = {
         getMenuFor: function (element, event) {
-            var i = 0;
+            var result = getMapping(element);
 
-            for (; i < elementMapping.length; i++) {
-                if (elementMapping[i].element === element) {
-                    return elementMapping[i].get(event);
-                }
+            if (result) {
+                return result.get(event);
+            }
+        },
+        openMenuFor: function (element, event) {
+            var result = getMapping(element);
+
+            if (result) {
+                return result.open(event);
             }
         },
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var eventsToHandle = valueAccessor() || {},
                 allBindings = allBindingsAccessor(),
-                defaultClass = allBindings.contextMenuClass || 'context-menu';
+                defaultClass = allBindings.contextMenuClass || 'context-menu',
+                activeElement;
 
             // bind on click? bind on context click?
             if (allBindings.bindMenuOnClick) {
@@ -49,29 +55,35 @@ function bindContextMenu(ko, document) {
 
             elementMapping.push({
                 element: element,
-                get: getMenu
+                get: function () {
+                    return activeElement;
+                },
+                open: openMenu
             });
 
             function openMenu(event) {
-                var menu = getMenu(event).element;
+                var menuElement;
+
+                activeElement = getMenu(event);
+                menuElement = activeElement.element;
 
                 hideCurrentMenu();
 
                 if (event) {
                     // set location
-                    menu.style.top = event.pageY;
-                    menu.style.left = event.pageX;
+                    menuElement.style.top = event.pageY;
+                    menuElement.style.left = event.pageX;
 
                     event.preventDefault();
                 }
 
                 // if not body, put it somewhere
-                (document.body || document).appendChild(menu);
+                (document.body || document).appendChild(menuElement);
 
                 // replace current menu with the recently created
-                currentMenu = menu;
+                currentMenu = menuElement;
 
-                return menu;
+                return menuElement;
             }
 
             function getMenu(event) {
@@ -255,6 +267,16 @@ function bindContextMenu(ko, document) {
         }
 
         currentMenu = null;
+    }
+
+    function getMapping(element) {
+        var i = 0;
+
+        for (; i < elementMapping.length; i++) {
+            if (elementMapping[i].element === element) {
+                return elementMapping[i];
+            }
+        }
     }
 }
 })();
