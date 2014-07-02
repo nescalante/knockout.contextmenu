@@ -14,7 +14,7 @@ describe('menu basics', function () {
         elements = [];
     });
 
-    it('should open menu on context menu event', function () {
+    it('should open menu on context menu event and close it on document click', function () {
         var source = applyMenu({
                 oneItem: function () { }
             }),
@@ -22,23 +22,34 @@ describe('menu basics', function () {
 
         ko.utils.triggerEvent(source.element, 'contextmenu');
 
-        element = contextMenu.getMenuFor(source.element).element;
+        element = ko.utils.contextMenu.getMenuFor(source.element).element;
 
         // the element is in the body
         expect(element.parentNode).toEqual(document.body);
+
+        ko.utils.triggerEvent(document, 'click');
+
+        // the element was removed
+        expect(element.parentNode).toBe(null);        
     });
 
     it('should open menu on "open" event', function () {
         var source = applyMenu({
                 oneItem: function () { }
             }),
-            element;
+            element,
+            menu;
 
-        contextMenu.openMenuFor(source.element);
-        element = contextMenu.getMenuFor(source.element).element;
+        menu = ko.utils.contextMenu.openMenuFor(source.element);
+        element = menu.element;
 
         // the element is in the body
         expect(element.parentNode).toEqual(document.body);
+
+        menu.hide();
+
+        // the element was removed
+        expect(element.parentNode).toBe(null);
     });
 });
 
@@ -54,7 +65,7 @@ function applyMenu(menu, options, element) {
         menu: menu
     }, element);
 
-    source = contextMenu.getMenuFor(element);
+    source = ko.utils.contextMenu.getMenuFor(element);
 
     return {
         menu: source,

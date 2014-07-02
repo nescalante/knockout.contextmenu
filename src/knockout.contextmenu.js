@@ -11,20 +11,17 @@ if (typeof module !== undefined + '' && module.exports) {
 
 function bindContextMenu(ko, document) {
     var currentMenu,
-        currentOnClick = document.onclick,
-        elementMapping = [];
+        elementMapping = [],
+        utils = ko.utils,
+        registerEvent = utils.registerEventHandler;
     
-    document.onclick = function (event) { 
+    registerEvent(document, 'click', function (event) { 
         if (!event.defaultPrevented) {
-            if (currentOnClick) {
-                currentOnClick(event);
-            }
-
             hideCurrentMenu();
         }
-    };
+    });
 
-    ko.bindingHandlers.contextMenu = {
+    utils.contextMenu = {
         getMenuFor: function (element, event) {
             var result = getMapping(element);
 
@@ -38,7 +35,10 @@ function bindContextMenu(ko, document) {
             if (result) {
                 return result.open(event);
             }
-        },
+        }
+    };
+
+    ko.bindingHandlers.contextMenu = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var eventsToHandle = valueAccessor() || {},
                 allBindings = allBindingsAccessor(),
@@ -47,10 +47,10 @@ function bindContextMenu(ko, document) {
 
             // bind on click? bind on context click?
             if (allBindings.bindMenuOnClick) {
-                ko.utils.registerEventHandler(element, 'click', openMenu);
+                registerEvent(element, 'click', openMenu);
             }
             if (allBindings.bindMenuOnContextMenu === undefined || allBindings.bindMenuOnContextMenu) {
-                ko.utils.registerEventHandler(element, 'contextmenu', openMenu);
+                registerEvent(element, 'contextmenu', openMenu);
             }
 
             elementMapping.push({
@@ -58,7 +58,12 @@ function bindContextMenu(ko, document) {
                 get: function () {
                     return activeElement;
                 },
-                open: openMenu
+                open: openMenu,
+                hide: function () {
+                    if (activeElement) {
+                        activeElement.hide();
+                    }
+                }
             });
 
             function openMenu(event) {
@@ -83,7 +88,7 @@ function bindContextMenu(ko, document) {
                 // replace current menu with the recently created
                 currentMenu = menuElement;
 
-                return menuElement;
+                return activeElement;
             }
 
             function getMenu(event) {
@@ -107,7 +112,7 @@ function bindContextMenu(ko, document) {
 
                     // map items to actions
                     elements.forEach(function (item, index) {
-                        ko.utils.registerEventHandler(menu.children[0].children[index], 'click', function (event) {
+                        registerEvent(menu.children[0].children[index], 'click', function (event) {
                             var result = actions[index](viewModel, event);
 
                             if (!result && event) {
@@ -125,6 +130,8 @@ function bindContextMenu(ko, document) {
                         if (menu && menu.parentNode) {
                             menu.parentNode.removeChild(menu);
                         }
+
+                        currentMenu = null;
                     }
                 };
 
