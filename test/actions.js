@@ -15,9 +15,7 @@ describe('menu basics', function () {
     });
 
     it('should open menu on context menu event and close it on document click', function () {
-        var source = applyMenu({
-                oneItem: function () { }
-            }),
+        var source = getBasicMenu(),
             element;
 
         ko.utils.triggerEvent(source.element, 'contextmenu');
@@ -34,23 +32,23 @@ describe('menu basics', function () {
     });
 
     it('should open menu on "open" event', function () {
-        var source = applyMenu({
-                oneItem: function () { }
-            }),
-            element,
-            menu;
-
-        menu = ko.utils.contextMenu.openMenuFor(source.element);
-        element = menu.element;
+        var source = getBasicMenu(),
+            menu = ko.utils.contextMenu.openMenuFor(source.element);
 
         // the element is in the body
-        expect(element.parentNode).toEqual(document.body);
+        expect(menu.element.parentNode).toEqual(document.body);
 
         menu.hide();
 
         // the element was removed
-        expect(element.parentNode).toBe(null);
+        expect(menu.element.parentNode).toBe(null);
     });
+
+    function getBasicMenu() {
+        return applyMenu({
+            oneItem: function () { }
+        });
+    }
 });
 
 function applyMenu(menu, options, element) {

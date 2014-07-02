@@ -24,6 +24,16 @@ module.exports = function (grunt) {
                 }
             }
         },
+        cssmin: {
+            src: {
+                files: {
+                    'dist/css/contextmenu.min.css': 'src/contextmenu.css'
+                }
+            }
+        },
+        clean: {
+            dist: ['dist']
+        },
         copy: {
             src: {
                 src: '<%= pkg.main %>',
@@ -52,5 +62,5 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
-    grunt.registerTask('build', ['lint', 'test', 'copy', 'uglify']);
+    grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'cssmin']);
 };
