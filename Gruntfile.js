@@ -99,7 +99,7 @@ module.exports = function (grunt) {
                     'git push',
                     'git push --tags',
                     'npm publish'
-                ]
+                ].join('&&')
             }
         }
     });
