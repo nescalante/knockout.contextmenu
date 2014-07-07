@@ -2,12 +2,14 @@
 
 module.exports = function (grunt) {
     var banner = '/* <%= pkg.name %> v<%= pkg.version %>' +
-        '\n   <%= pkg.author.name %> - <%= pkg.author.email %>' +
-        '\n   Issues: <%= pkg.bugs.url %>' +
-        '\n   License: <%= pkg.license %> */\n\n';
+            '\n   <%= pkg.author.name %> - <%= pkg.author.email %>' +
+            '\n   Issues: <%= pkg.bugs.url %>' +
+            '\n   License: <%= pkg.license %> */\n\n',
+        pkg = grunt.file.readJSON('package.json'),
+        version = pkg.version;
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: pkg,
         jshint: {
             options: {
                 reporter: require('jshint-stylish'),
@@ -88,6 +90,17 @@ module.exports = function (grunt) {
                     specs: 'test/*.js'
                 }
             }
+        },
+        shell: {
+            release: {
+                command: [
+                    'git commit -am "release version ' + version + '"',
+                    'git tag ' + version,
+                    'git push',
+                    'git push --tags',
+                    'npm publish'
+                ]
+            }
         }
     });
 
@@ -100,8 +113,24 @@ module.exports = function (grunt) {
         render(done);
     });
 
+    grunt.registerTask('add-version', 'Creates a new version', function () {
+        var bowerPkg = grunt.file.readJSON('bower.json'),
+            pkgVersion = pkg.version.split('.');
+        
+        version = grunt.option('version') || [pkgVersion[0], pkgVersion[1], parseInt(pkgVersion[2]) + 1].join('.');
+
+        pkg.version = version;
+        bowerPkg.version = version;
+
+        grunt.file.write('package.json', JSON.stringify(pkg, null, 2));
+        grunt.file.write('bower.json', JSON.stringify(bowerPkg, null, 2));
+
+        grunt.log.writeln('Deploying version ' + version);
+    });
+
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
     grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
+    grunt.registerTask('deploy', ['add-version', 'build', 'shell:release']);
 };

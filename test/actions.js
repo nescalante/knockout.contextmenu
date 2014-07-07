@@ -112,30 +112,6 @@ describe('menu basics', function () {
         expect(item.innerHTML).toBe('title2');
     });
 
-    it('should change item text when binding an observable', function () {
-        var someObservable = ko.observable('title1'),
-            source = applyMenu({
-                doSomething: { 
-                    action: function () { /*something should be done*/ },
-                    text: someObservable
-                }
-            }),
-            menu = ko.utils.contextMenu.openMenuFor(source.element),
-            item = menu.element.children[0].children[0];
-
-        // ensure item title, do click just to close it and then change observable value
-        expect(item.innerHTML).toBe('title1');
-        ko.utils.triggerEvent(item, 'click');
-        someObservable('title2');
-
-        // well, reload it
-        menu = ko.utils.contextMenu.openMenuFor(source.element);
-        item = menu.element.children[0].children[0];
-
-        // the menu item should be changed
-        expect(item.innerHTML).toBe('title2');
-    });
-
     function getBasicMenu() {
         return applyMenu({
             oneItem: function () { }
