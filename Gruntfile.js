@@ -6,7 +6,8 @@ module.exports = function (grunt) {
             '\n   Issues: <%= pkg.bugs.url %>' +
             '\n   License: <%= pkg.license %> */\n\n',
         pkg = grunt.file.readJSON('package.json'),
-        version = pkg.version;
+        pkgVersion = pkg.version.split('.'),
+        version = grunt.option('version') || [pkgVersion[0], pkgVersion[1], parseInt(pkgVersion[2]) + 1].join('.');
 
     grunt.initConfig({
         pkg: pkg,
@@ -114,10 +115,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('add-version', 'Creates a new version', function () {
-        var bowerPkg = grunt.file.readJSON('bower.json'),
-            pkgVersion = pkg.version.split('.');
-        
-        version = grunt.option('version') || [pkgVersion[0], pkgVersion[1], parseInt(pkgVersion[2]) + 1].join('.');
+        var bowerPkg = grunt.file.readJSON('bower.json');
 
         pkg.version = version;
         bowerPkg.version = version;
