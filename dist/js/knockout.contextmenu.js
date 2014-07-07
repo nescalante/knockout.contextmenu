@@ -1,3 +1,7 @@
+/* knockout.contextmenu v0.1.4
+   Nicolás Escalante - nlante@gmail.com
+   License: MIT */
+
 (function (undefined) {
 'use strict';
 
