@@ -3,6 +3,7 @@
 module.exports = function (grunt) {
     var banner = '/* <%= pkg.name %> v<%= pkg.version %>' +
         '\n   <%= pkg.author.name %> - <%= pkg.author.email %>' +
+        '\n   Issues: <%= pkg.bugs.url %>' +
         '\n   License: <%= pkg.license %> */\n\n';
 
     grunt.initConfig({
@@ -26,14 +27,14 @@ module.exports = function (grunt) {
         less: {
             src: {
                 files: {
-                    'dist/css/contextmenu.css': 'src/contextmenu.less'
+                    'dist/css/<%= pkg.name %>.css': 'src/<%= pkg.name %>.less'
                 }
             }
         },
         cssmin: {
             src: {
                 files: {
-                    'dist/css/contextmenu.min.css': 'dist/css/contextmenu.css'
+                    'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css'
                 }
             }
         },
@@ -47,8 +48,8 @@ module.exports = function (grunt) {
                 dest: 'dist/js/<%= pkg.name %>.js'
             },
             less: {
-                src: 'src/contextmenu.less',
-                dest: 'dist/less/contextmenu.less'
+                src: 'src/<%= pkg.name %>.less',
+                dest: 'dist/less/<%= pkg.name %>.less'
             }
         },
         concat: {
@@ -65,16 +66,16 @@ module.exports = function (grunt) {
                 dest: 'dist/js/<%= pkg.name %>.min.js',
             },
             less: {
-                src: ['dist/less/contextmenu.less'],
-                dest: 'dist/less/contextmenu.less',
+                src: ['dist/less/<%= pkg.name %>.less'],
+                dest: 'dist/less/<%= pkg.name %>.less',
             },
             css: {
-                src: ['dist/css/contextmenu.css'],
-                dest: 'dist/css/contextmenu.css',
+                src: ['dist/css/<%= pkg.name %>.css'],
+                dest: 'dist/css/<%= pkg.name %>.css',
             },
             cssmin: {
-                src: ['dist/css/contextmenu.min.css'],
-                dest: 'dist/css/contextmenu.min.css',
+                src: ['dist/css/<%= pkg.name %>.min.css'],
+                dest: 'dist/css/<%= pkg.name %>.min.css',
             }
         },
         jasmine: {
@@ -103,5 +104,4 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
     grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
-
 };
