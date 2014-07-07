@@ -28,7 +28,7 @@ describe('menu basics', function () {
         ko.utils.triggerEvent(document, 'click');
 
         // the element was removed
-        expect(element.parentNode).toBe(null);        
+        expect(element.parentNode).toBeNull();        
     });
 
     it('should open menu on "open" event', function () {
@@ -41,7 +41,25 @@ describe('menu basics', function () {
         menu.hide();
 
         // the element was removed
-        expect(menu.element.parentNode).toBe(null);
+        expect(menu.element.parentNode).toBeNull();
+    });
+
+    it('should run action on click', function () {
+        var source = applyMenu({
+                doSomething: function () { applied = true; }
+            }),
+            applied = false,
+            menu = ko.utils.contextMenu.openMenuFor(source.element),
+            item = menu.element.children[0].children[0];
+
+        // at this point, item var should be the <li> element that refers to the menu item
+        ko.utils.triggerEvent(item, 'click');
+
+        // the menu item was clicked
+        expect(applied).toBe(true);
+
+        // the menu was removed
+        expect(menu.element.parentNode).toBeNull();
     });
 
     function getBasicMenu() {

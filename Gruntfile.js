@@ -66,8 +66,16 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
+    grunt.registerTask('render', 'Render an image of the context menu.', function () {
+        var done = this.async();
+        var render = require('./render');
+
+        render(done);
+    });
+
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
     grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'less', 'cssmin']);
+
 };
