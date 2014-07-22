@@ -40,6 +40,6 @@
     "jshint-stylish": "~0.2.0",
     "knockout": "~3.1.0",
     "load-grunt-tasks": "~0.6.0",
-    "phantom": "^0.6.4"
+    "phantom": "^0.6.5"
   }
 }

@@ -8,8 +8,8 @@ function render(done) {
             };
 
             page.open("http://www.google.com", function (status) {
-                page.evaluate(function () { 
-                    return document.title; 
+                page.evaluate(function () {
+                    return document.title;
                 });
 
                 page.render('test.png');
