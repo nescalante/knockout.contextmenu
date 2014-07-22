@@ -1,5 +1,19 @@
 # knockout.contextmenu [![Build Status](https://travis-ci.org/nescalante/knockout.contextmenu.svg?branch=master)](https://travis-ci.org/nescalante/knockout.contextmenu)
 
+Contextual menu, anywhere you need it:
+
+![Such example](https://raw.github.com/nescalante/knockout.contextmenu/master/example/menu.png)
+
+# Install
+
+```shell
+npm install knockout.contextmenu --save
+
+bower install knockout.contextmenu
+```
+
+# Usage
+
 To bind a context menu to an element:
 
     <td data-bind="contextMenu: { 'Option 1': $root.rootMethod, 'Option 2': itemMethod, 'Option 3': anotherMethod }">
