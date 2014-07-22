@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../dist/css/knockout.contextmenu.css">
+    <script src="../node_modules/knockout/build/output/knockout-latest.debug.js"></script>
+    <script src="../dist/js/knockout.contextmenu.js"></script>
+</head>
+<body>
+    <span id="item" data-bind="contextMenu: menu">[Something]</span>
+    <script>
+        var menu = {
+            'Option one': function() { alert('oh, you clicked me'); },
+            'Option two': { action: function() { alert('you are on fire'); } },
+            'a separator': { separator: true },
+            'Some boolean': ko.observable(true),
+            'Option three': { text: 'Final action', action: function() { /* nothing to do */ } }
+        };
+
+        ko.applyBindings({});
+        ko.utils.contextMenu.openMenuFor(item)
+    </script>
+</body>
+</html>

@@ -130,5 +130,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('default', ['lint', 'test']);
     grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
-    grunt.registerTask('deploy', ['add-version', 'build', 'shell:release']);
+    grunt.registerTask('deploy', ['add-version', 'build', 'render', 'shell:release']);
 };

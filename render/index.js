@@ -7,12 +7,12 @@ function render(done) {
                 console.log(msg);
             };
 
-            page.open("http://www.google.com", function (status) {
+            page.open("render/index.html", function (status) {
                 page.evaluate(function () {
                     return document.title;
                 });
 
-                page.render('test.png');
+                page.render('example/menu.png');
                 ph.exit();
                 done();
             });

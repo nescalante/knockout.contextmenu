@@ -14,8 +14,8 @@ function bindContextMenu(ko, document) {
         elementMapping = [],
         utils = ko.utils,
         registerEvent = utils.registerEventHandler;
-    
-    registerEvent(document, 'click', function (event) { 
+
+    registerEvent(document, 'click', function (event) {
         if (!event.defaultPrevented) {
             hideCurrentMenu();
         }
@@ -76,10 +76,15 @@ function bindContextMenu(ko, document) {
 
                 if (event) {
                     // set location
-                    menuElement.style.top = event.pageY;
-                    menuElement.style.left = event.pageX;
+                    menuElement.style.top = (event.offsetY + event.target.offsetTop) + "px";
+                    menuElement.style.left = (event.offsetX + event.target.offsetLeft) + "px";
 
                     event.preventDefault();
+                }
+                else {
+                    // set location
+                    menuElement.style.top = (element.offsetTop + element.offsetHeight) + "px";
+                    menuElement.style.left = (element.offsetLeft + element.offsetWidth) + "px";
                 }
 
                 // if not body, put it somewhere
@@ -240,7 +245,7 @@ function bindContextMenu(ko, document) {
                         if (!item.action && !url && !isSeparator) {
                             throw error;
                         }
-                        
+
                         // evaluate action
                         else if (item.action) {
                             if (ko.isObservable(item.action) && typeof item.action() == "boolean") {

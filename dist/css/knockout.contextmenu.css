@@ -37,7 +37,7 @@
 .context-menu ul > li.checked:before {
   position: absolute;
   content: "\2713";
-  left: calc(50% - 3px);
+  left: 7px;
 }
 .context-menu ul > li.with-url {
   padding: 0;
