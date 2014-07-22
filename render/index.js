@@ -18,8 +18,6 @@ function render(done) {
             });
         });
     });
-
-    return "test";
 }
 
 module.exports = render;
