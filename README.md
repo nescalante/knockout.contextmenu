@@ -23,7 +23,7 @@ To bind a context menu to an element:
 You can also bind a boolean observable to the context menu, that will work as a 'check':
 
 ```json
-contextMenu: { 
+{ 
     Boolean: someObservableBoolean, 
     'One method': $root.test 
 }
@@ -42,7 +42,7 @@ Option     | Description
 Example:
 
 ```json
-contextMenu: { 
+{ 
     'Complex item': { text: $root.someObservableText(), visible: someMethod() == '1', action: $root.someAction }, 
     'One method': $root.test
 }
