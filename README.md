@@ -55,7 +55,7 @@ Example:
 To create a separator between two menus, just create an object with the property `separator` with `true`:
 
 ```json
-contextMenu: { 
+{ 
     'Some item': methodOne,
     'Separator': { 
         separator: true, 
