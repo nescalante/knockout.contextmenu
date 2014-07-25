@@ -43,7 +43,11 @@ Example:
 
 ```json
 { 
-    'Complex item': { text: $root.someObservableText(), visible: someMethod() == '1', action: $root.someAction }, 
+    'Complex item': { 
+        text: $root.someObservableText(), 
+        visible: someMethod() == '1', 
+        action: $root.someAction 
+    }, 
     'One method': $root.test
 }
 ```
@@ -53,7 +57,10 @@ To create a separator between two menus, just create an object with the property
 ```json
 contextMenu: { 
     'Some item': methodOne,
-    'Separator': { separator: true, visible: someMethod() },
+    'Separator': { 
+        separator: true, 
+        visible: someMethod() 
+    },
     'Just another item': methodTwo
 }
 ```
