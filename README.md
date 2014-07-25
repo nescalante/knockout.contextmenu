@@ -24,7 +24,7 @@ You can also bind a boolean observable to the context menu, that will work as a 
 
 ```json
 { 
-    Boolean: someObservableBoolean, 
+    "Boolean": someObservableBoolean, 
     "One method": $root.test 
 }
 ```
@@ -44,9 +44,9 @@ Example:
 ```json
 { 
     "Complex item": { 
-        text: $root.someObservableText(), 
-        visible: someMethod() == '1', 
-        action: $root.someAction 
+        "text": $root.someObservableText(), 
+        "visible": someMethod() == '1', 
+        "action": $root.someAction 
     }, 
     "One method": $root.test
 }
@@ -58,8 +58,8 @@ To create a separator between two menus, just create an object with the property
 { 
     "Some item": methodOne,
     "Separator": { 
-        separator: true, 
-        visible: someMethod() 
+        "separator": true, 
+        "visible": someMethod() 
     },
     "Just another item": methodTwo
 }
