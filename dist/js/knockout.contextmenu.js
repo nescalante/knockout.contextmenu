@@ -1,4 +1,4 @@
-/* knockout.contextmenu v0.1.10
+/* knockout.contextmenu v0.1.20
    Nicolás Escalante - nlante@gmail.com
    Issues: https://github.com/nescalante/knockout.contextmenu/issues
    License: MIT */
@@ -71,6 +71,30 @@ function bindContextMenu(ko, document) {
                 }
             });
 
+            function mouseX(evt) {
+                if (evt.pageX) {
+                    return evt.pageX;
+                } else if (evt.clientX) {
+                   return evt.clientX + (document.documentElement.scrollLeft ?
+                       document.documentElement.scrollLeft :
+                       document.body.scrollLeft);
+                } else {
+                    return null;
+                }
+            }
+
+            function mouseY(evt) {
+                if (evt.pageY) {
+                    return evt.pageY;
+                } else if (evt.clientY) {
+                   return evt.clientY + (document.documentElement.scrollTop ?
+                   document.documentElement.scrollTop :
+                   document.body.scrollTop);
+                } else {
+                    return null;
+                }
+            }
+
             function openMenu(event) {
                 var menuElement;
 
@@ -81,8 +105,8 @@ function bindContextMenu(ko, document) {
 
                 if (event) {
                     // set location
-                    menuElement.style.top = (event.offsetY + event.target.offsetTop) + "px";
-                    menuElement.style.left = (event.offsetX + event.target.offsetLeft) + "px";
+                    menuElement.style.top = mouseY(event) + "px";
+                    menuElement.style.left = mouseX(event) + "px";
 
                     event.preventDefault();
                 }
