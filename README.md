@@ -20,6 +20,8 @@ To bind a context menu to an element:
 <td data-bind="contextMenu: { 'Option 1': $root.rootMethod, 'Option 2': itemMethod, 'Option 3': anotherMethod }">
 ```
 
+Dont forget to include the [`.css` file](https://github.com/nescalante/knockout.contextmenu/blob/master/dist/css/knockout.contextmenu.min.css).
+
 You can also bind a boolean observable to the context menu, that will work as a 'check':
 
 ```json
