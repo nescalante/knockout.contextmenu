@@ -53,7 +53,12 @@ module.exports = function (grunt) {
             less: {
                 src: 'src/<%= pkg.name %>.less',
                 dest: 'dist/less/<%= pkg.name %>.less'
+            },
+            knockout: {
+                src: 'node_modules/knockout/build/output/knockout-latest.debug.js',
+                dest: 'example/knockout.js'
             }
+
         },
         concat: {
             options: {

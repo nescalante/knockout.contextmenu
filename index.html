@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <link href='dist/css/knockout.contextmenu.css' rel='stylesheet' type='text/css' />
+    <script src='example/knockout.js'></script>
+    <script src='dist/js/knockout.contextmenu.js'></script>
+</head>
+<body>
+<title>knockout.contextMenu</title>
+<h1>knockout.contextMenu</h1>
+<h3>Contextual menu, anywhere you need it</h3>
+<div>
+    <div>
+        <label for='txt1'>Right click on the input: </label>
+        <input id='txt1' type='text' data-bind='contextMenu: menu' />
+    </div>
+    <div>
+        <label for='cb1'>Disable option two</label>
+        <input id='cb1' type='checkbox' data-bind='checked: disabled'/>
+    </div>
+    <div>
+        <label for='cb2'>Show option three</label>
+        <input id='cb2' type='checkbox' data-bind='checked: visible'/>
+    </div>
+</div>
+<script>
+    (function () {
+
+    // a bit of options
+    var disabled = ko.observable(false);
+    var visible = ko.observable(true);
+    var menu = {
+        'Option one': function() { alert('oh, you clicked me'); },
+        'Option two': { disabled: disabled, action: function() { alert('you are on fire'); } },
+        'a separator': { separator: true },
+        'Some boolean': ko.observable(true),
+        'Option three': { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
+    };
+
+    ko.applyBindings({ 
+        menu: menu,
+        disabled: disabled,
+        visible: visible
+    });
+
+    })();
+</script>
+</body>
+</html>
