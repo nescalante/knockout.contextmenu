@@ -94,15 +94,14 @@ function bindContextMenu(ko, document) {
 
                 hideCurrentMenu();
 
+                // set location
                 if (event) {
-                    // set location
                     menuElement.style.top = mouseY(event) + "px";
                     menuElement.style.left = mouseX(event) + "px";
 
                     event.preventDefault();
                 }
                 else {
-                    // set location
                     menuElement.style.top = (element.offsetTop + element.offsetHeight) + "px";
                     menuElement.style.left = (element.offsetLeft + element.offsetWidth) + "px";
                 }
@@ -199,12 +198,12 @@ function bindContextMenu(ko, document) {
                     url = (ko.isObservable(item.url) ? item.url() : item.url),
                     isVisible = item.visible === undefined || item.visible === null ||
                         (ko.isObservable(item.visible) && item.visible()) ||
-                        !!item.visible,
+                        (!ko.isObservable(item.visible) && !!item.visible),
                     isChecked = false,
                     isEnabled = !item.disabled ||
                         (ko.isObservable(item.disabled) && !item.disabled()) ||
                         (ko.isObservable(item.enabled) && item.enabled()) ||
-                        !!item.enabled,
+                        (!ko.isObservable(item.enabled) && !!item.enabled),
                     isBoolean = false,
                     isDisabled = !isEnabled,
                     isSeparator = !!eventsToHandle[eventName].separator;
