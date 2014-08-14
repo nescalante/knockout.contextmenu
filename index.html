@@ -12,7 +12,11 @@
 <div>
     <div>
         <label for='txt1'>Right click on the input: </label>
-        <input id='txt1' type='text' data-bind='contextMenu: menu' />
+        <input id='txt1' type='text' data-bind='contextMenu: menu, value: value' />
+    </div>
+    <div>
+        <label for='txt2'>Change option one text: </label>
+        <input id='txt2' type='text' data-bind='value: optionOneText' />
     </div>
     <div>
         <label for='cb1'>Disable option two</label>
@@ -27,10 +31,12 @@
     (function () {
 
     // a bit of options
+    var value = ko.observable('some value');
+    var optionOneText = ko.observable('Option one');
     var disabled = ko.observable(false);
     var visible = ko.observable(true);
     var menu = {
-        'Option one': function() { alert('oh, you clicked me'); },
+        'Option one': { text: optionOneText, action: clicked },
         'Option two': { disabled: disabled, action: function() { alert('you are on fire'); } },
         'a separator': { separator: true },
         'Some boolean': ko.observable(true),
@@ -39,9 +45,15 @@
 
     ko.applyBindings({ 
         menu: menu,
+        value: value,
+        optionOneText: optionOneText,
         disabled: disabled,
         visible: visible
     });
+
+    function clicked(data) {
+        alert('oh, you clicked me! ah, and you typed "' + data.value() + '"');
+    }
 
     })();
 </script>
