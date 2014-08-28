@@ -10,10 +10,11 @@ if (typeof module !== undefined + '' && module.exports) {
 }
 
 function bindContextMenu(ko, document) {
-    var currentMenu,
-        elementMapping = [],
-        utils = ko.utils,
-        registerEvent = utils.registerEventHandler;
+    var currentMenu;
+    var elementMapping = [];
+    var utils = ko.utils;
+    var registerEvent = utils.registerEventHandler;
+    var isObservable = ko.isObservable;
 
     registerEvent(document, 'click', function (event) {
         if (!event.defaultPrevented) {
@@ -96,14 +97,14 @@ function bindContextMenu(ko, document) {
 
                 // set location
                 if (event) {
-                    menuElement.style.top = mouseY(event) + "px";
-                    menuElement.style.left = mouseX(event) + "px";
+                    menuElement.style.top = mouseY(event) + 'px';
+                    menuElement.style.left = mouseX(event) + 'px';
 
                     event.preventDefault();
                 }
                 else {
-                    menuElement.style.top = (element.offsetTop + element.offsetHeight) + "px";
-                    menuElement.style.left = (element.offsetLeft + element.offsetWidth) + "px";
+                    menuElement.style.top = (element.offsetTop + element.offsetHeight) + 'px';
+                    menuElement.style.left = (element.offsetLeft + element.offsetWidth) + 'px';
                 }
 
                 // if not body, put it somewhere
@@ -195,21 +196,21 @@ function bindContextMenu(ko, document) {
                 var text = '',
                     html = '',
                     item = eventsToHandle[eventName] || {},
-                    url = (ko.isObservable(item.url) ? item.url() : item.url),
+                    url = (isObservable(item.url) ? item.url() : item.url),
                     isVisible = item.visible === undefined || item.visible === null ||
-                        (ko.isObservable(item.visible) && item.visible()) ||
-                        (!ko.isObservable(item.visible) && !!item.visible),
+                        (isObservable(item.visible) && item.visible()) ||
+                        (!isObservable(item.visible) && !!item.visible),
                     isChecked = false,
                     isEnabled = !item.disabled ||
-                        (ko.isObservable(item.disabled) && !item.disabled()) ||
-                        (ko.isObservable(item.enabled) && item.enabled()) ||
-                        (!ko.isObservable(item.enabled) && !!item.enabled),
+                        (isObservable(item.disabled) && !item.disabled()) ||
+                        (isObservable(item.enabled) && item.enabled()) ||
+                        (!isObservable(item.enabled) && !!item.enabled),
                     isBoolean = false,
                     isDisabled = !isEnabled,
                     isSeparator = !!eventsToHandle[eventName].separator;
 
                 if (!isSeparator) {
-                    text = ko.isObservable(item.text) ? item.text() : item.text;
+                    text = isObservable(item.text) ? item.text() : item.text;
 
                     if (!text) {
                         text = eventName;
@@ -223,12 +224,12 @@ function bindContextMenu(ko, document) {
                     }
                 }
 
-                if ((ko.isObservable(item) && typeof item() == "boolean") ||
-                    (ko.isObservable(item.action) && typeof item.action() == "boolean")) {
+                if ((isObservable(item) && typeof item() == 'boolean') ||
+                    (isObservable(item.action) && typeof item.action() == 'boolean')) {
                     isBoolean = true;
 
                     if ((item.action && item.action()) ||
-                        (typeof item == "function" && item())) {
+                        (typeof item == 'function' && item())) {
                         isChecked = true;
                     }
                 }
@@ -254,7 +255,7 @@ function bindContextMenu(ko, document) {
                     }
 
                     // check if option is a boolean
-                    if (ko.isObservable(item) && typeof item() == "boolean") {
+                    if (isObservable(item) && typeof item() == 'boolean') {
                         item(!item());
                     }
 
@@ -267,7 +268,7 @@ function bindContextMenu(ko, document) {
 
                         // evaluate action
                         else if (item.action) {
-                            if (ko.isObservable(item.action) && typeof item.action() == "boolean") {
+                            if (isObservable(item.action) && typeof item.action() == 'boolean') {
                                 item.action(!item.action());
                             }
                             else {
