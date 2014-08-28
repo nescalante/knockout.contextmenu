@@ -1,6 +1,6 @@
 {
   "name": "knockout.contextmenu",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "knockout contextmenu extension",
   "main": "src/knockout.contextmenu.js",
   "scripts": {
