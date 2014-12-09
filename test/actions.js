@@ -92,7 +92,7 @@ describe('menu basics', function () {
         var someObservable = ko.observable('title1');
         var source = applyMenu({
                 doSomething: {
-                    action: function () { /*something should be done*/ },
+                    action: Function.prototype,
                     text: someObservable
                 }
             });
@@ -112,9 +112,30 @@ describe('menu basics', function () {
         expect(item.innerHTML).toBe('title2');
     });
 
+    it('should support observableArrays', function () {
+        var someObservable = ko.observable('title1');
+        var items = ko.observableArray([{ text: 'action1', action: Function.prototype }, { text: 'action2', action: Function.prototype }]);
+        var source = applyMenu(items);
+        var menu = ko.utils.contextMenu.openMenuFor(source.element);
+        var itemsCount = menu.element.children[0].children.length;
+
+        // check items length, there should be only 2
+        expect(itemsCount).toBe(2);
+
+        // add something else
+        items.push({ text: 'action3', action: Function.prototype });
+
+        // reopen menu, and get count
+        menu = ko.utils.contextMenu.openMenuFor(source.element);
+        itemsCount = menu.element.children[0].children.length;
+
+        // the menu item should be changed
+        expect(itemsCount).toBe(3);
+    });
+
     function getBasicMenu() {
         return applyMenu({
-            oneItem: function () { }
+            oneItem: Function.prototype
         });
     }
 });
