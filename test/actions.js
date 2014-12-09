@@ -1,7 +1,7 @@
 'use strict';
 
-var contextMenu = ko.bindingHandlers.contextMenu,
-    elements = [];
+var contextMenu = ko.bindingHandlers.contextMenu;
+var elements = [];
 
 describe('menu basics', function () {
     // remove elements and clean knockout context
@@ -15,8 +15,8 @@ describe('menu basics', function () {
     });
 
     it('should open menu on context menu event and close it on document click', function () {
-        var source = getBasicMenu(),
-            element;
+        var source = getBasicMenu();
+        var element;
 
         ko.utils.triggerEvent(source.element, 'contextmenu');
         element = ko.utils.contextMenu.getMenuFor(source.element).element;
@@ -27,12 +27,12 @@ describe('menu basics', function () {
         ko.utils.triggerEvent(document, 'click');
 
         // the element was removed
-        expect(element.parentNode).toBeNull();        
+        expect(element.parentNode).toBeNull();
     });
 
     it('should open menu on "open" event', function () {
-        var source = getBasicMenu(),
-            menu = ko.utils.contextMenu.openMenuFor(source.element);
+        var source = getBasicMenu();
+        var menu = ko.utils.contextMenu.openMenuFor(source.element);
 
         // the element is in the body
         expect(menu.element.parentNode).toEqual(document.body);
@@ -46,10 +46,10 @@ describe('menu basics', function () {
     it('should run action on click', function () {
         var source = applyMenu({
                 'do something': function () { applied = true; }
-            }),
-            applied = false,
-            menu = ko.utils.contextMenu.openMenuFor(source.element),
-            item = menu.element.children[0].children[0];
+            });
+        var applied = false;
+        var menu = ko.utils.contextMenu.openMenuFor(source.element);
+        var item = menu.element.children[0].children[0];
 
         // just to ensure
         expect(item.innerHTML).toBe('do something');
@@ -66,14 +66,14 @@ describe('menu basics', function () {
 
     it('should ensure alternative way action binding', function () {
         var source = applyMenu({
-                doSomething: { 
+                doSomething: {
                     action: function () { applied = true; },
                     text: 'some title'
                 }
-            }),
-            applied = false,
-            menu = ko.utils.contextMenu.openMenuFor(source.element),
-            item = menu.element.children[0].children[0];
+            });
+        var applied = false;
+        var menu = ko.utils.contextMenu.openMenuFor(source.element);
+        var item = menu.element.children[0].children[0];
 
         // just to ensure
         expect(item.innerHTML).toBe('some title');
@@ -89,15 +89,15 @@ describe('menu basics', function () {
     });
 
     it('should change item text when binding an observable', function () {
-        var someObservable = ko.observable('title1'),
-            source = applyMenu({
-                doSomething: { 
+        var someObservable = ko.observable('title1');
+        var source = applyMenu({
+                doSomething: {
                     action: function () { /*something should be done*/ },
                     text: someObservable
                 }
-            }),
-            menu = ko.utils.contextMenu.openMenuFor(source.element),
-            item = menu.element.children[0].children[0];
+            });
+        var menu = ko.utils.contextMenu.openMenuFor(source.element);
+        var item = menu.element.children[0].children[0];
 
         // ensure item title, do click just to close it and then change observable value
         expect(item.innerHTML).toBe('title1');
@@ -140,8 +140,8 @@ function applyMenu(menu, options, element) {
 }
 
 function createMenu(options) {
-    var json = JSON.stringify(options),
-        element;
+    var json = JSON.stringify(options);
+    var element;
 
     element = document.createElement('div');
     element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));

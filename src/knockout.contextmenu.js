@@ -41,10 +41,10 @@ function bindContextMenu(ko, document) {
 
     ko.bindingHandlers.contextMenu = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            var eventsToHandle = valueAccessor() || {},
-                allBindings = allBindingsAccessor(),
-                defaultClass = allBindings.contextMenuClass || 'context-menu',
-                activeElement;
+            var eventsToHandle = valueAccessor() || {};
+            var allBindings = allBindingsAccessor();
+            var defaultClass = allBindings.contextMenuClass || 'context-menu';
+            var activeElement;
 
             // bind on click? bind on context click?
             if (allBindings.bindMenuOnClick) {
@@ -124,7 +124,7 @@ function bindContextMenu(ko, document) {
                 var items = [];
                 var result;
                 var props = Object.keys(ko.isObservable(eventsToHandle) ? eventsToHandle() : eventsToHandle);
-                
+
                 props.forEach(function (eventNameOutsideClosure) {
                     pushItem(eventNameOutsideClosure);
                 });
@@ -162,8 +162,8 @@ function bindContextMenu(ko, document) {
                 };
 
                 function pushItem(eventName) {
-                    var item = getMenuProperties(eventName),
-                        classes = [];
+                    var item = getMenuProperties(eventName);
+                    var classes = [];
 
                     if (item.isVisible) {
                         hasChecks = hasChecks || item.isBoolean;
