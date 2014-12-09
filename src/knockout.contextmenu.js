@@ -117,16 +117,16 @@ function bindContextMenu(ko, document) {
             }
 
             function getMenu(event) {
-                var menu,
-                    hasChecks = false,
-                    elements = [],
-                    actions = [],
-                    items = [],
-                    result;
+                var menu;
+                var hasChecks = false;
+                var elements = [];
+                var actions = [];
+                var items = [];
+                var result;
 
-                for (var eventNameOutsideClosure in eventsToHandle) {
+                Object.keys(eventsToHandle).forEach(function (eventNameOutsideClosure) {
                     pushItem(eventNameOutsideClosure);
-                }
+                });
 
                 if (elements.length) {
                     menu = document.createElement('div');
