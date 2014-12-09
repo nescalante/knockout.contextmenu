@@ -4,7 +4,8 @@
   "description": "knockout contextmenu extension",
   "main": "src/knockout.contextmenu.js",
   "scripts": {
-    "test": "grunt default --verbose"
+    "test": "grunt default --verbose",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",

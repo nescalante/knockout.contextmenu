@@ -28,6 +28,7 @@
     </div>
 </div>
 <script>
+var menu;
     (function () {
 
     // a bit of options
@@ -35,13 +36,10 @@
     var optionOneText = ko.observable('Option one');
     var disabled = ko.observable(false);
     var visible = ko.observable(true);
-    var menu = {
-        'Option one': { text: optionOneText, action: clicked },
-        'Option two': { disabled: disabled, action: function() { alert('you are on fire'); } },
-        'a separator': { separator: true },
-        'Some boolean': ko.observable(true),
-        'Option three': { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
-    };
+    menu = ko.observableArray([
+        { text: optionOneText, action: clicked },
+        { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
+    ]);
 
     ko.applyBindings({ 
         menu: menu,

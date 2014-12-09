@@ -123,8 +123,9 @@ function bindContextMenu(ko, document) {
                 var actions = [];
                 var items = [];
                 var result;
-
-                Object.keys(eventsToHandle).forEach(function (eventNameOutsideClosure) {
+                var props = Object.keys(ko.isObservable(eventsToHandle) ? eventsToHandle() : eventsToHandle);
+                
+                props.forEach(function (eventNameOutsideClosure) {
                     pushItem(eventNameOutsideClosure);
                 });
 
@@ -193,21 +194,22 @@ function bindContextMenu(ko, document) {
             }
 
             function getMenuProperties(eventName) {
-                var text = '',
-                    html = '',
-                    item = eventsToHandle[eventName] || {},
-                    url = (isObservable(item.url) ? item.url() : item.url),
-                    isVisible = item.visible === undefined || item.visible === null ||
+                var text = '';
+                var html = '';
+                var currentEvent = ko.isObservable(eventsToHandle) ? eventsToHandle()[eventName] : eventsToHandle[eventName];
+                var item = currentEvent || {};
+                var url = (isObservable(item.url) ? item.url() : item.url);
+                var isVisible = item.visible === undefined || item.visible === null ||
                         (isObservable(item.visible) && item.visible()) ||
-                        (!isObservable(item.visible) && !!item.visible),
-                    isChecked = false,
-                    isEnabled = !item.disabled ||
+                        (!isObservable(item.visible) && !!item.visible);
+                var isChecked = false;
+                var isEnabled = !item.disabled ||
                         (isObservable(item.disabled) && !item.disabled()) ||
                         (isObservable(item.enabled) && item.enabled()) ||
-                        (!isObservable(item.enabled) && !!item.enabled),
-                    isBoolean = false,
-                    isDisabled = !isEnabled,
-                    isSeparator = !!eventsToHandle[eventName].separator;
+                        (!isObservable(item.enabled) && !!item.enabled);
+                var isBoolean = false;
+                var isDisabled = !isEnabled;
+                var isSeparator = !!currentEvent.separator;
 
                 if (!isSeparator) {
                     text = isObservable(item.text) ? item.text() : item.text;
