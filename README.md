@@ -66,3 +66,13 @@ To create a separator between two menus, just create an object with the property
     "Just another item": methodTwo
 }
 ```
+
+Also supports `observableArrays`!
+
+```js
+var menu = ko.observableArray([{ text: 'Item 1', action: doSomething }, { text: 'Item 2', action: doMore }]); 
+```
+
+```html
+<td data-bind="contextMenu: menu">
+```
