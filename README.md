@@ -24,7 +24,7 @@ Dont forget to include the [`.css` file](https://github.com/nescalante/knockout.
 
 You can also bind a boolean observable to the context menu, that will work as a 'check':
 
-```json
+```js
 { 
     "Boolean": someObservableBoolean, 
     "One method": $root.test 
