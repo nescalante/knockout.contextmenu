@@ -30,6 +30,22 @@ describe('menu basics', function () {
         expect(element.parentNode).toBeNull();
     });
 
+    it('should open menu on left click when it is enabled', function () {
+        var source = getLeftClickMenu();
+        var element;
+
+        ko.utils.triggerEvent(source.element, 'click');
+        element = ko.utils.contextMenu.getMenuFor(source.element).element;
+
+        // the element is in the body
+        expect(element.parentNode).toEqual(document.body);
+
+        ko.utils.triggerEvent(document, 'click');
+
+        // the element was removed
+        expect(element.parentNode).toBeNull();
+    });
+
     it('should open menu on "open" event', function () {
         var source = getBasicMenu();
         var menu = ko.utils.contextMenu.openMenuFor(source.element);
@@ -138,6 +154,12 @@ describe('menu basics', function () {
             oneItem: Function.prototype
         });
     }
+
+    function getLeftClickMenu() {
+        return applyMenu({
+            oneItem: Function.prototype
+        }, { bindMenuOnClick: true, bindMenuOnContextMenu: false });
+    }
 });
 
 function applyMenu(menu, options, element) {
@@ -166,6 +188,18 @@ function createMenu(options) {
 
     element = document.createElement('div');
     element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));
+    document.body.appendChild(element);
+    elements.push(element);
+
+    return element;
+}
+
+function createMenuOnClick(options) {
+    var json = JSON.stringify(options);
+    var element;
+
+    element = document.createElement('div');
+    element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : '') + ', bindMenuOnClick: true, bindMenuOnContextMenu: false');
     document.body.appendChild(element);
     elements.push(element);
 

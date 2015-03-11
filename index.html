@@ -4,6 +4,7 @@
     <link href='dist/css/knockout.contextmenu.css' rel='stylesheet' type='text/css' />
     <script src='example/knockout.js'></script>
     <script src='dist/js/knockout.contextmenu.js'></script>
+    <style>div > div { padding: 5px; }</style>
 </head>
 <body>
 <title>knockout.contextMenu</title>
@@ -26,6 +27,10 @@
         <label for='cb2'>Show option three</label>
         <input id='cb2' type='checkbox' data-bind='checked: visible'/>
     </div>
+    <div>
+        <label for='text3'>Bind it with left click</label>
+        <input id='text3' type='text' data-bind='contextMenu: menu, value: value, bindMenuOnClick: true, bindMenuOnContextMenu: false'/>
+    </div>
 </div>
 <script>
 var menu;
@@ -41,7 +46,7 @@ var menu;
         { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
     ]);
 
-    ko.applyBindings({ 
+    ko.applyBindings({
         menu: menu,
         value: value,
         optionOneText: optionOneText,

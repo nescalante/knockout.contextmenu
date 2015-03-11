@@ -67,6 +67,12 @@ To create a separator between two menus, just create an object with the property
 }
 ```
 
+Bind it with left click, if you want to:
+
+```html
+<td data-bind="contextMenu: { 'Options': justGoHere }, bindMenuOnClick: true, bindMenuOnContextMenu: false">
+```
+
 Also supports `observableArrays`!
 
 ```js
