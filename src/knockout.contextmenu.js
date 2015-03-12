@@ -101,6 +101,7 @@ function bindContextMenu(ko, document) {
                     menuElement.style.left = mouseX(event) + 'px';
 
                     event.preventDefault();
+                    event.stopPropagation();
                 }
                 else {
                     menuElement.style.top = (element.offsetTop + element.offsetHeight) + 'px';
