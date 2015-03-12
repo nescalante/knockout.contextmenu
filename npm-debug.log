@@ -1,0 +1,180 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/nicolasescalante/.nvm/v0.10.23/bin/node',
+1 verbose cli   '/Users/nicolasescalante/.nvm/v0.10.23/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@1.3.17
+3 info using node@v0.10.23
+4 verbose publish [ '.' ]
+5 verbose cache add [ '.', null ]
+6 verbose cache add name=undefined spec="." args=[".",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: '.',
+7 verbose parsed url   path: '.',
+7 verbose parsed url   href: '.' }
+8 silly lockFile 3a52ce78- .
+9 verbose lock . /Users/nicolasescalante/.npm/3a52ce78-.lock
+10 verbose tar pack [ '/var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz',
+10 verbose tar pack   '.' ]
+11 verbose tarball /var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+12 verbose folder .
+13 info prepublish knockout.contextmenu@0.2.3
+14 silly lockFile 1f1177db-tar tar://.
+15 verbose lock tar://. /Users/nicolasescalante/.npm/1f1177db-tar.lock
+16 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+17 verbose lock tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz /Users/nicolasescalante/.npm/826804a1-37859-0-7667914719786495-tmp-tgz.lock
+18 silly lockFile 1f1177db-tar tar://.
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+21 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+22 verbose tar unpack /var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+23 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+24 verbose lock tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package /Users/nicolasescalante/.npm/3e28a266-37859-0-7667914719786495-package.lock
+25 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+26 verbose lock tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz /Users/nicolasescalante/.npm/826804a1-37859-0-7667914719786495-tmp-tgz.lock
+27 silly gunzTarPerm modes [ '755', '644' ]
+28 silly gunzTarPerm extractEntry package.json
+29 silly gunzTarPerm extractEntry .npmignore
+30 silly gunzTarPerm extractEntry README.md
+31 silly gunzTarPerm extractEntry LICENSE
+32 silly gunzTarPerm extractEntry Gruntfile.js
+33 silly gunzTarPerm extractEntry .travis.yml
+34 silly gunzTarPerm extractEntry .jshintrc
+35 silly gunzTarPerm extractEntry dist/css/knockout.contextmenu.css
+36 silly gunzTarPerm extractEntry dist/css/knockout.contextmenu.min.css
+37 silly gunzTarPerm extractEntry dist/js/knockout.contextmenu.js
+38 silly gunzTarPerm extractEntry dist/js/knockout.contextmenu.min.js
+39 silly gunzTarPerm extractEntry dist/less/knockout.contextmenu.less
+40 silly gunzTarPerm extractEntry src/knockout.contextmenu.js
+41 silly gunzTarPerm extractEntry src/knockout.contextmenu.less
+42 silly gunzTarPerm extractEntry .editorconfig
+43 silly gunzTarPerm extractEntry test/actions.js
+44 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+45 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+46 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+47 silly lockFile 826804a1-37859-0-7667914719786495-tmp-tgz tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/tmp.tgz
+48 verbose tar pack [ '/Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz',
+48 verbose tar pack   '/var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package' ]
+49 verbose tarball /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+50 verbose folder /var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+51 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+52 verbose lock tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package /Users/nicolasescalante/.npm/3e28a266-37859-0-7667914719786495-package.lock
+53 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+54 verbose lock tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz /Users/nicolasescalante/.npm/89c9795b-ut-contextmenu-0-2-3-package-tgz.lock
+55 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+56 silly lockFile 3e28a266-37859-0-7667914719786495-package tar:///var/folders/m2/qsd575px3c30fjbd11fc0cfh0000gn/T/npm-28186-LtM_JEFu/1426178737859-0.7667914719786495/package
+57 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+58 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+59 silly lockFile a1853f4c-ockout-contextmenu-0-2-3-package /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+60 verbose lock /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package /Users/nicolasescalante/.npm/a1853f4c-ockout-contextmenu-0-2-3-package.lock
+61 silly lockFile a1853f4c-ockout-contextmenu-0-2-3-package /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+62 silly lockFile a1853f4c-ockout-contextmenu-0-2-3-package /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+63 verbose tar unpack /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+64 silly lockFile acee864a-ockout-contextmenu-0-2-3-package tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+65 verbose lock tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package /Users/nicolasescalante/.npm/acee864a-ockout-contextmenu-0-2-3-package.lock
+66 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+67 verbose lock tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz /Users/nicolasescalante/.npm/89c9795b-ut-contextmenu-0-2-3-package-tgz.lock
+68 silly gunzTarPerm modes [ '755', '644' ]
+69 silly gunzTarPerm extractEntry package.json
+70 silly gunzTarPerm extractEntry .npmignore
+71 silly gunzTarPerm extractEntry README.md
+72 silly gunzTarPerm extractEntry LICENSE
+73 silly gunzTarPerm extractEntry Gruntfile.js
+74 silly gunzTarPerm extractEntry .jshintrc
+75 silly gunzTarPerm extractEntry .travis.yml
+76 silly gunzTarPerm extractEntry dist/css/knockout.contextmenu.css
+77 silly gunzTarPerm extractEntry dist/css/knockout.contextmenu.min.css
+78 silly gunzTarPerm extractEntry dist/js/knockout.contextmenu.js
+79 silly gunzTarPerm extractEntry dist/js/knockout.contextmenu.min.js
+80 silly gunzTarPerm extractEntry dist/less/knockout.contextmenu.less
+81 silly gunzTarPerm extractEntry .editorconfig
+82 silly gunzTarPerm extractEntry src/knockout.contextmenu.js
+83 silly gunzTarPerm extractEntry src/knockout.contextmenu.less
+84 silly gunzTarPerm extractEntry test/actions.js
+85 silly lockFile acee864a-ockout-contextmenu-0-2-3-package tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+86 silly lockFile acee864a-ockout-contextmenu-0-2-3-package tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package
+87 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+88 silly lockFile 89c9795b-ut-contextmenu-0-2-3-package-tgz tar:///Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz
+89 verbose chmod /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz 644
+90 verbose chown /Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz [ 501, 20 ]
+91 silly lockFile 3a52ce78- .
+92 silly lockFile 3a52ce78- .
+93 silly publish { name: 'knockout.contextmenu',
+93 silly publish   version: '0.2.3',
+93 silly publish   description: 'knockout contextmenu extension',
+93 silly publish   main: 'src/knockout.contextmenu.js',
+93 silly publish   scripts: { test: 'grunt default --verbose', build: 'grunt build' },
+93 silly publish   repository:
+93 silly publish    { type: 'git',
+93 silly publish      url: 'https://github.com/nescalante/knockout.contextmenu.git' },
+93 silly publish   keywords: [ 'knockout', 'contextmenu', 'menu', 'binding', 'extension' ],
+93 silly publish   author: { name: 'Nicolás Escalante', email: 'nlante@gmail.com' },
+93 silly publish   license: 'MIT',
+93 silly publish   bugs: { url: 'https://github.com/nescalante/knockout.contextmenu/issues' },
+93 silly publish   homepage: 'https://github.com/nescalante/knockout.contextmenu',
+93 silly publish   devDependencies:
+93 silly publish    { grunt: '~0.4.5',
+93 silly publish      'grunt-contrib-clean': '~0.5.0',
+93 silly publish      'grunt-contrib-concat': '^0.4.0',
+93 silly publish      'grunt-contrib-copy': '~0.5.0',
+93 silly publish      'grunt-contrib-cssmin': '~0.10.0',
+93 silly publish      'grunt-contrib-jasmine': '~0.6.5',
+93 silly publish      'grunt-contrib-jshint': '~0.10.0',
+93 silly publish      'grunt-contrib-less': '~0.11.3',
+93 silly publish      'grunt-contrib-uglify': '~0.5.0',
+93 silly publish      'grunt-shell': '^0.7.0',
+93 silly publish      'jshint-stylish': '~0.2.0',
+93 silly publish      knockout: '~3.1.0',
+93 silly publish      'load-grunt-tasks': '~0.6.0',
+93 silly publish      phantom: '^0.6.5' },
+93 silly publish   readme: '# knockout.contextmenu [![Build Status](https://travis-ci.org/nescalante/knockout.contextmenu.svg?branch=master)](https://travis-ci.org/nescalante/knockout.contextmenu)\n\n> Contextual menu, anywhere you need it\n\n![Such example](https://raw.github.com/nescalante/knockout.contextmenu/master/example/menu.png)\n\n# Install\n\n```shell\nnpm install knockout.contextmenu --save\n\nbower install knockout.contextmenu\n```\n\n# Usage\n\nTo bind a context menu to an element:\n\n```html\n<td data-bind="contextMenu: { \'Option 1\': $root.rootMethod, \'Option 2\': itemMethod, \'Option 3\': anotherMethod }">\n```\n\nDont forget to include the [`.css` file](https://github.com/nescalante/knockout.contextmenu/blob/master/dist/css/knockout.contextmenu.min.css).\n\nYou can also bind a boolean observable to the context menu, that will work as a \'check\':\n\n```js\n{ \n    "Boolean": someObservableBoolean, \n    "One method": $root.test \n}\n```\n\nYou can also set dynamic \'text\' and \'visible\' values binding an object with the following values instead of a method:\n\nOption     | Description\n-----------|-----------------------------------------------\n`url`      | Direct access to an URL.\n`text`     | Set menu text.\n`visible`  | Show/hide item (result must be boolean).\n`action`   | Item method, mandatory if not url defined.\n`disabled` | Disable menu item.\n\nExample:\n\n```js\n{ \n    "Complex item": { \n        "text": $root.someObservableText(), \n        "visible": someMethod() == \'1\', \n        "action": $root.someAction \n    }, \n    "One method": $root.test\n}\n```\n\nTo create a separator between two menus, just create an object with the property `separator` with `true`:\n\n```js\n{ \n    "Some item": methodOne,\n    "Separator": { \n        "separator": true, \n        "visible": someMethod() \n    },\n    "Just another item": methodTwo\n}\n```\n\nBind it with left click, if you want to:\n\n```html\n<td data-bind="contextMenu: { \'Options\': justGoHere }, bindMenuOnClick: true, bindMenuOnContextMenu: false">\n```\n\nAlso supports `observableArrays`!\n\n```js\nvar menu = ko.observableArray([{ text: \'Item 1\', action: doSomething }, { text: \'Item 2\', action: doMore }]); \n```\n\n```html\n<td data-bind="contextMenu: menu">\n```\n',
+93 silly publish   readmeFilename: 'README.md',
+93 silly publish   _id: 'knockout.contextmenu@0.2.3',
+93 silly publish   dist: { shasum: '011b05914b99b692bd2ce37848b7b1b4ee851d6d' },
+93 silly publish   _from: '.' }
+94 verbose url raw knockout.contextmenu
+95 verbose url resolving [ 'https://registry.npmjs.org/', './knockout.contextmenu' ]
+96 verbose url resolved https://registry.npmjs.org/knockout.contextmenu
+97 info trying registry request attempt 1 at 09:45:38
+98 http PUT https://registry.npmjs.org/knockout.contextmenu
+99 http 403 https://registry.npmjs.org/knockout.contextmenu
+100 info trying registry request attempt 1 at 09:45:38
+101 http PUT https://registry.npmjs.org/knockout.contextmenu
+102 http 201 https://registry.npmjs.org/knockout.contextmenu
+103 verbose url raw knockout.contextmenu
+104 verbose url resolving [ 'https://registry.npmjs.org/', './knockout.contextmenu' ]
+105 verbose url resolved https://registry.npmjs.org/knockout.contextmenu
+106 info trying registry request attempt 1 at 09:45:38
+107 http GET https://registry.npmjs.org/knockout.contextmenu
+108 http 200 https://registry.npmjs.org/knockout.contextmenu
+109 verbose uploading [ 'knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee',
+109 verbose uploading   '/Users/nicolasescalante/.npm/knockout.contextmenu/0.2.3/package.tgz' ]
+110 verbose url raw knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee
+111 verbose url resolving [ 'https://registry.npmjs.org/',
+111 verbose url resolving   './knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee' ]
+112 verbose url resolved https://registry.npmjs.org/knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee
+113 info trying registry request attempt 1 at 09:45:38
+114 http PUT https://registry.npmjs.org/knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee
+115 http 409 https://registry.npmjs.org/knockout.contextmenu/-/knockout.contextmenu-0.2.3.tgz/-rev/26-e15b8cc85663d94ccfbd3d884e55d4ee
+116 error publish fail Cannot publish over existing version.
+116 error publish fail Update the 'version' field in package.json and try again.
+116 error publish fail
+116 error publish fail If the previous version was published in error, see:
+116 error publish fail     npm help unpublish
+116 error publish fail
+116 error publish fail To automatically increment version numbers, see:
+116 error publish fail     npm help version
+117 error System Darwin 14.1.0
+118 error command "/Users/nicolasescalante/.nvm/v0.10.23/bin/node" "/Users/nicolasescalante/.nvm/v0.10.23/bin/npm" "publish"
+119 error cwd /Users/nicolasescalante/dev/knockout.contextmenu
+120 error node -v v0.10.23
+121 error npm -v 1.3.17
+122 error code EPUBLISHCONFLICT
+123 verbose exit [ 1, true ]
