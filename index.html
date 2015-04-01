@@ -44,6 +44,7 @@ var menu;
     menu = ko.observableArray([
         { text: optionOneText, action: clicked },
         { text: 'Option 2 (maybe disabled)', action: function () { alert('you are doing it well'); }, disabled: disabled },
+        { text: 'Disable option above', action: disabled },
         { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
     ]);
 
