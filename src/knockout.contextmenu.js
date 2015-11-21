@@ -95,10 +95,26 @@ function bindContextMenu(ko, document) {
 
                 hideCurrentMenu();
 
+                // make visibility hidden, then add to DOM so that we can get the height/width of the menu
+                menuElement.style.visibility = "hidden";
+                (document.body || document).appendChild(menuElement);
+
                 // set location
                 if (event) {
-                    menuElement.style.top = mouseY(event) + 'px';
-                    menuElement.style.left = mouseX(event) + 'px';
+                    var bottomOfViewport = window.innerHeight + window.pageYOffset;
+                    var rightOfViewport = window.innerWidth + window.pageXOffset;
+
+                    if (mouseY(event) + menuElement.offsetHeight > bottomOfViewport) {
+                        menuElement.style.top = 1 * (bottomOfViewport - menuElement.offsetHeight - 10) + 'px';
+                    } else {
+                        menuElement.style.top = mouseY(event) + 'px';
+                    }
+
+                    if (mouseX(event) + menuElement.offsetWidth > rightOfViewport) {
+                        menuElement.style.left = 1 * (rightOfViewport - menuElement.offsetWidth - 10) + 'px';
+                    } else {
+                        menuElement.style.left = mouseX(event) + 'px';
+                    }
 
                     event.preventDefault();
                     event.stopPropagation();
@@ -108,8 +124,8 @@ function bindContextMenu(ko, document) {
                     menuElement.style.left = (element.offsetLeft + element.offsetWidth) + 'px';
                 }
 
-                // if not body, put it somewhere
-                (document.body || document).appendChild(menuElement);
+                // now set to visible
+                menuElement.style.visibility = "";
 
                 // replace current menu with the recently created
                 currentMenu = menuElement;
