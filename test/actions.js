@@ -147,6 +147,13 @@ describe('menu basics', function () {
     expect(itemsCount).toBe(3);
   });
 
+  it('shouldn\'t fail if menu is empty', function () {
+    var items = ko.observableArray([]);
+    var source = applyMenu(items);
+
+    ko.utils.contextMenu.openMenuFor(source.element);
+  });
+
   function getBasicMenu() {
     return applyMenu({
       oneItem: Function.prototype

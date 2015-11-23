@@ -1,64 +1,64 @@
 <!doctype html>
 <html>
 <head>
-    <link href='dist/css/knockout.contextmenu.css' rel='stylesheet' type='text/css' />
-    <script src='example/knockout.js'></script>
-    <script src='dist/js/knockout.contextmenu.js'></script>
-    <style>div > div { padding: 5px; }</style>
+  <link href='dist/css/knockout.contextmenu.css' rel='stylesheet' type='text/css' />
+  <script src='example/knockout.js'></script>
+  <script src='dist/js/knockout.contextmenu.js'></script>
+  <style>div > div { padding: 5px; }</style>
 </head>
 <body>
 <title>knockout.contextMenu</title>
 <h1>knockout.contextMenu</h1>
 <h3>Contextual menu, anywhere you need it</h3>
 <div>
-    <div>
-        <label for='txt1'>Right click on the input: </label>
-        <input id='txt1' type='text' data-bind='contextMenu: menu, value: value' />
-    </div>
-    <div>
-        <label for='txt2'>Change option one text: </label>
-        <input id='txt2' type='text' data-bind='value: optionOneText' />
-    </div>
-    <div>
-        <label for='cb1'>Disable option two</label>
-        <input id='cb1' type='checkbox' data-bind='checked: disabled'/>
-    </div>
-    <div>
-        <label for='cb2'>Show option three</label>
-        <input id='cb2' type='checkbox' data-bind='checked: visible'/>
-    </div>
-    <div>
-        <label for='text3'>Bind it with left click</label>
-        <input id='text3' type='text' data-bind='contextMenu: menu, value: value, bindMenuOnClick: true, bindMenuOnContextMenu: false'/>
-    </div>
+  <div>
+    <label for='txt1'>Right click on the input: </label>
+    <input id='txt1' type='text' data-bind='contextMenu: menu, value: value' />
+  </div>
+  <div>
+    <label for='txt2'>Change option one text: </label>
+    <input id='txt2' type='text' data-bind='value: optionOneText' />
+  </div>
+  <div>
+    <label for='cb1'>Disable option two</label>
+    <input id='cb1' type='checkbox' data-bind='checked: disabled'/>
+  </div>
+  <div>
+    <label for='cb2'>Show option three</label>
+    <input id='cb2' type='checkbox' data-bind='checked: visible'/>
+  </div>
+  <div>
+    <label for='text3'>Bind it with left click</label>
+    <input id='text3' type='text' data-bind='contextMenu: menu, value: value, bindMenuOnClick: true, bindMenuOnContextMenu: false'/>
+  </div>
 </div>
 <script>
 var menu;
-    (function () {
+  (function () {
 
-    // a bit of options
-    var value = ko.observable('some value');
-    var optionOneText = ko.observable('Option one');
-    var disabled = ko.observable(false);
-    var visible = ko.observable(true);
-    menu = ko.observableArray([
-        { text: optionOneText, action: clicked },
-        { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
-    ]);
+  // a bit of options
+  var value = ko.observable('some value');
+  var optionOneText = ko.observable('Option one');
+  var disabled = ko.observable(false);
+  var visible = ko.observable(true);
+  menu = ko.observableArray([
+    { text: optionOneText, action: clicked },
+    { visible: visible, text: 'Final action', action: function() { alert('good job guy'); } }
+  ]);
 
-    ko.applyBindings({
-        menu: menu,
-        value: value,
-        optionOneText: optionOneText,
-        disabled: disabled,
-        visible: visible
-    });
+  ko.applyBindings({
+    menu: menu,
+    value: value,
+    optionOneText: optionOneText,
+    disabled: disabled,
+    visible: visible
+  });
 
-    function clicked(data) {
-        alert('oh, you clicked me! ah, and you typed "' + data.value() + '"');
-    }
+  function clicked(data) {
+    alert('oh, you clicked me! ah, and you typed "' + data.value() + '"');
+  }
 
-    })();
+  })();
 </script>
 </body>
 </html>
