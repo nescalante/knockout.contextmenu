@@ -60,7 +60,7 @@ describe('menu basics', function () {
 
   it('should run action on click', function () {
     var source = applyMenu({
-        'do something': function () { applied = true; }
+        'do something': function () { applied = true; },
       });
     var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
@@ -83,8 +83,9 @@ describe('menu basics', function () {
     var source = applyMenu({
         doSomething: {
           action: function () { applied = true; },
-          text: 'some title'
-        }
+
+          text: 'some title',
+        },
       });
     var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
@@ -108,8 +109,8 @@ describe('menu basics', function () {
     var source = applyMenu({
         doSomething: {
           action: Function.prototype,
-          text: someObservable
-        }
+          text: someObservable,
+        },
       });
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var item = menu.element.children[0].children[0];
@@ -156,13 +157,13 @@ describe('menu basics', function () {
 
   function getBasicMenu() {
     return applyMenu({
-      oneItem: Function.prototype
+      oneItem: Function.prototype,
     });
   }
 
   function getLeftClickMenu() {
     return applyMenu({
-      oneItem: Function.prototype
+      oneItem: Function.prototype,
     }, { bindMenuOnClick: true, bindMenuOnContextMenu: false });
   }
 });
@@ -176,14 +177,14 @@ function applyMenu(menu, options, element) {
 
   // initialize knockout context
   ko.applyBindings({
-    menu: menu
+    menu: menu,
   }, element);
 
   source = ko.utils.contextMenu.getMenuFor(element);
 
   return {
     menu: source,
-    element: element
+    element: element,
   };
 }
 
