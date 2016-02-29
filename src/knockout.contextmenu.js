@@ -182,10 +182,14 @@ function bindContextMenu(ko, document) {
         function pushItem(eventName) {
           var item = getMenuProperties(eventName);
           var classes = [];
+          var id = '';
 
           if (item.isVisible) {
             hasChecks = hasChecks || item.isBoolean;
 
+            if(item.id){
+              id = item.id;
+            }
             // set css classes
             if (item.isChecked) {
               classes.push('checked');
@@ -203,7 +207,7 @@ function bindContextMenu(ko, document) {
               classes.push('with-url');
             }
 
-            elements.push('<li class="' + classes.join(' ') + '">' + item.html + '</li>');
+            elements.push('<li ' + (id ? ('id="' + id + '" '):'') + ' class="' + classes.join(' ') + '">' + item.html + '</li>');
             actions.push(item.action);
           }
 
@@ -216,6 +220,7 @@ function bindContextMenu(ko, document) {
         var html = '';
         var currentEvent = ko.isObservable(eventsToHandle) ? eventsToHandle()[eventName] : eventsToHandle[eventName];
         var item = currentEvent || {};
+        var id = item.id;
         var url = (isObservable(item.url) ? item.url() : item.url);
         var isVisible = item.visible === undefined || item.visible === null ||
             (isObservable(item.visible) && item.visible()) ||
@@ -258,6 +263,7 @@ function bindContextMenu(ko, document) {
           html: html,
           text: text,
           url: url,
+          id: id,
           isVisible: isVisible,
           isChecked: isChecked,
           isEnabled: isEnabled,
