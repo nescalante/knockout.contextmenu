@@ -17,7 +17,8 @@ function bindContextMenu(ko, document) {
   var isObservable = ko.isObservable;
 
   registerEvent(document, 'click', function (event) {
-    if (!event.defaultPrevented) {
+    var button = event.which || event.button;
+    if (!event.defaultPrevented && button < 2) {
       hideCurrentMenu();
     }
   });
