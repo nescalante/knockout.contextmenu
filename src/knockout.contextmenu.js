@@ -18,7 +18,7 @@ function bindContextMenu(ko, document) {
 
   registerEvent(document, 'click', function (event) {
     var button = event.which || event.button;
-    if (!event.defaultPrevented && button === 1) {
+    if (!event.defaultPrevented && button < 2) {
       hideCurrentMenu();
     }
   });
