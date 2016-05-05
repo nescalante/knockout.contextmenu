@@ -5,7 +5,9 @@
   "main": "src/knockout.contextmenu.js",
   "scripts": {
     "test": "grunt default --verbose",
-    "build": "grunt build"
+    "preversion": "grunt build && git commit --allow-empty -am 'pre-release commit'",
+    "postversion": "git push && git push --tags && npm publish && npm run update-gh-pages",
+    "update-gh-pages": "git checkout gh-pages && git merge @{-1} && git push && git checkout @{-1}"
   },
   "repository": {
     "type": "git",

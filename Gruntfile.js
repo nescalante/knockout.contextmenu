@@ -7,7 +7,8 @@ module.exports = function (grunt) {
       '\n   License: <%= pkg.license %> */\n\n';
   var pkg = grunt.file.readJSON('package.json');
   var pkgVersion = pkg.version.split('.');
-  var version = grunt.option('version') || [pkgVersion[0], pkgVersion[1], parseInt(pkgVersion[2]) + 1].join('.');
+  var version = grunt.option('version') ||
+    [pkgVersion[0], pkgVersion[1], parseInt(pkgVersion[2]) + 1].join('.');
 
   grunt.initConfig({
     pkg: pkg,
@@ -140,7 +141,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('lint', ['jshint']);
   grunt.registerTask('test', ['jasmine']);
-  grunt.registerTask('default', ['lint', 'test', 'jscs']);
-  grunt.registerTask('build', ['lint', 'test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
+  grunt.registerTask('default', ['lint', 'jscs', 'test']);
+  grunt.registerTask('build', ['test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
   grunt.registerTask('deploy', ['add-version', 'build', 'render', 'shell:release']);
 };

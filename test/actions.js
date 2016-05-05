@@ -129,7 +129,16 @@ describe('menu basics', function () {
   });
 
   it('should support observableArrays', function () {
-    var items = ko.observableArray([{ text: 'action1', action: Function.prototype }, { text: 'action2', action: Function.prototype }]);
+    var items = ko.observableArray([
+      {
+        text: 'action1',
+        action: Function.prototype,
+      },
+      {
+        text: 'action2',
+        action: Function.prototype,
+      },
+    ]);
     var source = applyMenu(items);
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var itemsCount = menu.element.children[0].children.length;
@@ -193,7 +202,9 @@ function createMenu(options) {
   var element;
 
   element = document.createElement('div');
-  element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));
+  element.setAttribute('data-bind',
+    'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : '')
+  );
   document.body.appendChild(element);
   elements.push(element);
 
