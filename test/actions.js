@@ -60,7 +60,7 @@ describe('menu basics', function () {
 
   it('should run action on click', function () {
     var source = applyMenu({
-        'do something': function () { applied = true; }
+        'do something': function () { applied = true; },
       });
     var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
@@ -83,8 +83,9 @@ describe('menu basics', function () {
     var source = applyMenu({
         doSomething: {
           action: function () { applied = true; },
-          text: 'some title'
-        }
+
+          text: 'some title',
+        },
       });
     var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
@@ -108,8 +109,8 @@ describe('menu basics', function () {
     var source = applyMenu({
         doSomething: {
           action: Function.prototype,
-          text: someObservable
-        }
+          text: someObservable,
+        },
       });
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var item = menu.element.children[0].children[0];
@@ -128,7 +129,16 @@ describe('menu basics', function () {
   });
 
   it('should support observableArrays', function () {
-    var items = ko.observableArray([{ text: 'action1', action: Function.prototype }, { text: 'action2', action: Function.prototype }]);
+    var items = ko.observableArray([
+      {
+        text: 'action1',
+        action: Function.prototype,
+      },
+      {
+        text: 'action2',
+        action: Function.prototype,
+      },
+    ]);
     var source = applyMenu(items);
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var itemsCount = menu.element.children[0].children.length;
@@ -156,13 +166,13 @@ describe('menu basics', function () {
 
   function getBasicMenu() {
     return applyMenu({
-      oneItem: Function.prototype
+      oneItem: Function.prototype,
     });
   }
 
   function getLeftClickMenu() {
     return applyMenu({
-      oneItem: Function.prototype
+      oneItem: Function.prototype,
     }, { bindMenuOnClick: true, bindMenuOnContextMenu: false });
   }
 });
@@ -176,14 +186,14 @@ function applyMenu(menu, options, element) {
 
   // initialize knockout context
   ko.applyBindings({
-    menu: menu
+    menu: menu,
   }, element);
 
   source = ko.utils.contextMenu.getMenuFor(element);
 
   return {
     menu: source,
-    element: element
+    element: element,
   };
 }
 
@@ -192,7 +202,9 @@ function createMenu(options) {
   var element;
 
   element = document.createElement('div');
-  element.setAttribute('data-bind', 'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : ''));
+  element.setAttribute('data-bind',
+    'contextMenu: menu' + (options ? ', ' + json.substring(1, json.length - 1) : '')
+  );
   document.body.appendChild(element);
   elements.push(element);
 

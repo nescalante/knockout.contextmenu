@@ -1,4 +1,4 @@
-/* knockout.contextmenu v0.3.6
+/* knockout.contextmenu v0.4.0
    Nicolás Escalante - nlante@gmail.com
    Issues: https://github.com/nescalante/knockout.contextmenu/issues
    License: MIT */
@@ -22,7 +22,8 @@ function bindContextMenu(ko, document) {
   var isObservable = ko.isObservable;
 
   registerEvent(document, 'click', function (event) {
-    if (!event.defaultPrevented) {
+    var button = event.which || event.button;
+    if (!event.defaultPrevented && button < 2) {
       hideCurrentMenu();
     }
   });
@@ -35,13 +36,15 @@ function bindContextMenu(ko, document) {
         return result.get(event);
       }
     },
+
     openMenuFor: function (element, event) {
       var result = getMapping(element);
 
       if (result) {
         return result.open(event);
       }
-    }
+    },
+
   };
 
   ko.bindingHandlers.contextMenu = {
@@ -55,6 +58,7 @@ function bindContextMenu(ko, document) {
       if (allBindings.bindMenuOnClick) {
         registerEvent(element, 'click', openMenu);
       }
+
       if (allBindings.bindMenuOnContextMenu === undefined || allBindings.bindMenuOnContextMenu) {
         registerEvent(element, 'contextmenu', openMenu);
       }
@@ -64,19 +68,20 @@ function bindContextMenu(ko, document) {
         get: function () {
           return activeElement;
         },
+
         open: openMenu,
         hide: function () {
           if (activeElement) {
             activeElement.hide();
           }
-        }
+        },
       });
 
       function mouseX(evt) {
         if (evt.pageX) {
           return evt.pageX;
         } else if (evt.clientX) {
-           return evt.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+          return evt.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
         } else {
           return null;
         }
@@ -86,7 +91,7 @@ function bindContextMenu(ko, document) {
         if (evt.pageY) {
           return evt.pageY;
         } else if (evt.clientY) {
-           return evt.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+          return evt.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
         } else {
           return null;
         }
@@ -124,8 +129,7 @@ function bindContextMenu(ko, document) {
 
             event.preventDefault();
             event.stopPropagation();
-          }
-          else {
+          } else {
             menuElement.style.top = (element.offsetTop + element.offsetHeight) + 'px';
             menuElement.style.left = (element.offsetLeft + element.offsetWidth) + 'px';
           }
@@ -146,7 +150,11 @@ function bindContextMenu(ko, document) {
         var elements = [];
         var actions = [];
         var items = [];
-        var props = Object.keys(ko.isObservable(eventsToHandle) ? eventsToHandle() : eventsToHandle);
+        var props = Object.keys(
+          ko.isObservable(eventsToHandle) ?
+          eventsToHandle() :
+          eventsToHandle
+        );
 
         props.forEach(function (eventNameOutsideClosure) {
           pushItem(eventNameOutsideClosure);
@@ -157,7 +165,9 @@ function bindContextMenu(ko, document) {
           menu.className = defaultClass;
 
           // you may need padding to menus that has checks
-          menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' + elements.join('') + '</ul>';
+          menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' +
+            elements.join('') +
+            '</ul>';
 
           // map items to actions
           elements.forEach(function (item, index) {
@@ -181,15 +191,21 @@ function bindContextMenu(ko, document) {
             }
 
             currentMenu = null;
-          }
+          },
         };
 
         function pushItem(eventName) {
           var item = getMenuProperties(eventName);
           var classes = [];
+          var id = '';
+          var liHtml;
 
           if (item.isVisible) {
             hasChecks = hasChecks || item.isBoolean;
+
+            if (item.id) {
+              id = item.id;
+            }
 
             // set css classes
             if (item.isChecked) {
@@ -208,7 +224,12 @@ function bindContextMenu(ko, document) {
               classes.push('with-url');
             }
 
-            elements.push('<li class="' + classes.join(' ') + '">' + item.html + '</li>');
+            liHtml = '<li ' + (id ? ('id="' + id + '" ') : '') +
+              ' class="' + classes.join(' ') + '">' +
+              item.html +
+              '</li>';
+
+            elements.push(liHtml);
             actions.push(item.action);
           }
 
@@ -219,8 +240,11 @@ function bindContextMenu(ko, document) {
       function getMenuProperties(eventName) {
         var text = '';
         var html = '';
-        var currentEvent = ko.isObservable(eventsToHandle) ? eventsToHandle()[eventName] : eventsToHandle[eventName];
+        var currentEvent = ko.isObservable(eventsToHandle) ?
+          eventsToHandle()[eventName] :
+          eventsToHandle[eventName];
         var item = currentEvent || {};
+        var id = item.id;
         var url = (isObservable(item.url) ? item.url() : item.url);
         var isVisible = item.visible === undefined || item.visible === null ||
             (isObservable(item.visible) && item.visible()) ||
@@ -243,8 +267,7 @@ function bindContextMenu(ko, document) {
 
           if (url) {
             html = '<a href="' + url + '">' + text + '</a>';
-          }
-          else {
+          } else {
             html = text;
           }
         }
@@ -263,13 +286,14 @@ function bindContextMenu(ko, document) {
           html: html,
           text: text,
           url: url,
+          id: id,
           isVisible: isVisible,
           isChecked: isChecked,
           isEnabled: isEnabled,
           isDisabled: isDisabled,
           isBoolean: isBoolean,
           isSeparator: isSeparator,
-          action: action
+          action: action,
         };
 
         function action(viewModel, event) {
@@ -295,8 +319,7 @@ function bindContextMenu(ko, document) {
             else if (item.action) {
               if (isObservable(item.action) && typeof item.action() === 'boolean') {
                 item.action(!item.action());
-              }
-              else {
+              } else {
                 item.action(viewModel, event);
               }
             }
@@ -315,7 +338,7 @@ function bindContextMenu(ko, document) {
           return true;
         }
       }
-    }
+    },
   };
 
   function hideCurrentMenu() {
