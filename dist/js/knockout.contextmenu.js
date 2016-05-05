@@ -150,7 +150,11 @@ function bindContextMenu(ko, document) {
         var elements = [];
         var actions = [];
         var items = [];
-        var props = Object.keys(ko.isObservable(eventsToHandle) ? eventsToHandle() : eventsToHandle);
+        var props = Object.keys(
+          ko.isObservable(eventsToHandle) ?
+          eventsToHandle() :
+          eventsToHandle
+        );
 
         props.forEach(function (eventNameOutsideClosure) {
           pushItem(eventNameOutsideClosure);
@@ -161,7 +165,9 @@ function bindContextMenu(ko, document) {
           menu.className = defaultClass;
 
           // you may need padding to menus that has checks
-          menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' + elements.join('') + '</ul>';
+          menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' +
+            elements.join('') +
+            '</ul>';
 
           // map items to actions
           elements.forEach(function (item, index) {
@@ -192,6 +198,7 @@ function bindContextMenu(ko, document) {
           var item = getMenuProperties(eventName);
           var classes = [];
           var id = '';
+          var liHtml;
 
           if (item.isVisible) {
             hasChecks = hasChecks || item.isBoolean;
@@ -217,7 +224,12 @@ function bindContextMenu(ko, document) {
               classes.push('with-url');
             }
 
-            elements.push('<li ' + (id ? ('id="' + id + '" ') : '') + ' class="' + classes.join(' ') + '">' + item.html + '</li>');
+            liHtml = '<li ' + (id ? ('id="' + id + '" ') : '') +
+              ' class="' + classes.join(' ') + '">' +
+              item.html +
+              '</li>';
+
+            elements.push(liHtml);
             actions.push(item.action);
           }
 
@@ -228,7 +240,9 @@ function bindContextMenu(ko, document) {
       function getMenuProperties(eventName) {
         var text = '';
         var html = '';
-        var currentEvent = ko.isObservable(eventsToHandle) ? eventsToHandle()[eventName] : eventsToHandle[eventName];
+        var currentEvent = ko.isObservable(eventsToHandle) ?
+          eventsToHandle()[eventName] :
+          eventsToHandle[eventName];
         var item = currentEvent || {};
         var id = item.id;
         var url = (isObservable(item.url) ? item.url() : item.url);
