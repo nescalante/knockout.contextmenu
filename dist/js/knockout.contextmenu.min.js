@@ -1,4 +1,4 @@
-/* knockout.contextmenu v0.4.2
+/* knockout.contextmenu v0.4.3
    Nicolás Escalante - nlante@gmail.com
    Issues: https://github.com/nescalante/knockout.contextmenu/issues
    License: MIT */
