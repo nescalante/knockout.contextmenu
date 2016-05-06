@@ -6,7 +6,7 @@
   "scripts": {
     "test": "grunt test --verbose",
     "preversion": "npm test",
-    "version": "grunt build && git commit --allow-empty -am 'pre-release commit'",
+    "version": "grunt build",
     "postversion": "git push && git push --tags && npm publish && npm run update-gh-pages",
     "update-gh-pages": "git checkout gh-pages && git merge @{-1} && git push && git checkout @{-1}"
   },
