@@ -127,21 +127,7 @@ module.exports = function (grunt) {
     render(done);
   });
 
-  grunt.registerTask('add-version', 'Creates a new version', function () {
-    var bowerPkg = grunt.file.readJSON('bower.json');
-
-    pkg.version = version;
-    bowerPkg.version = version;
-
-    grunt.file.write('package.json', JSON.stringify(pkg, null, 2));
-    grunt.file.write('bower.json', JSON.stringify(bowerPkg, null, 2));
-
-    grunt.log.writeln('Deploying version ' + version);
-  });
-
   grunt.registerTask('lint', ['jshint']);
-  grunt.registerTask('test', ['jasmine']);
-  grunt.registerTask('default', ['lint', 'jscs', 'test']);
-  grunt.registerTask('build', ['test', 'clean', 'copy', 'uglify', 'less', 'cssmin', 'concat']);
-  grunt.registerTask('deploy', ['add-version', 'build', 'render', 'shell:release']);
+  grunt.registerTask('test', ['lint', 'jscs', 'jasmine']);
+  grunt.registerTask('build', ['clean', 'copy', 'uglify', 'less', 'cssmin', 'concat', 'render']);
 };

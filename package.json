@@ -4,8 +4,9 @@
   "description": "knockout contextmenu extension",
   "main": "src/knockout.contextmenu.js",
   "scripts": {
-    "test": "grunt default --verbose",
-    "preversion": "grunt build && git commit --allow-empty -am 'pre-release commit'",
+    "test": "grunt test --verbose",
+    "preversion": "npm test",
+    "version": "grunt build && git commit --allow-empty -am 'pre-release commit'",
     "postversion": "git push && git push --tags && npm publish && npm run update-gh-pages",
     "update-gh-pages": "git checkout gh-pages && git merge @{-1} && git push && git checkout @{-1}"
   },
@@ -45,6 +46,6 @@
     "jshint-stylish": "~0.2.0",
     "knockout": "~3.1.0",
     "load-grunt-tasks": "~0.6.0",
-    "phantom": "^0.6.6"
+    "phantom": "^2.1.1"
   }
 }
