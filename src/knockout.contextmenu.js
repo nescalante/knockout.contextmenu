@@ -14,7 +14,9 @@
     // Browser globals
     factory(ko);
   }
-}(function (ko) {
+}
+
+(function (ko) {
   'use strict';
   var currentMenu;
   var elementMapping = [];
