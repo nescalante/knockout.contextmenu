@@ -2,14 +2,15 @@
    Nicolás Escalante - nlante@gmail.com
    Issues: https://github.com/nescalante/knockout.contextmenu/issues
    License: MIT */
-/*globals define*/
 (function (factory) {
   'use strict';
 
-  if (define !== undefined && typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['knockout'], factory);
-  } else if (typeof module !== undefined + '' && module.exports) {
+  //if (define !== undefined && typeof define === 'function' && define.amd) {
+  //  // AMD. Register as an anonymous module.
+  //  define(['knockout'], factory);
+  //} else
+
+  if (typeof module !== undefined + '' && module.exports) {
     factory = module.exports || exports;  // module.exports is for Node.js
   } else {
     // Browser globals
