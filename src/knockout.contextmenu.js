@@ -13,6 +13,7 @@
     factory(ko);
   }
 }(function(ko) {
+      "use strict";
       var currentMenu;
       var elementMapping = [];
       var utils = ko.utils;
