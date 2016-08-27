@@ -1,4 +1,4 @@
-/* knockout.contextmenu v0.4.4
+/* knockout.contextmenu v1.0.0
    Nicolás Escalante - nlante@gmail.com
    Issues: https://github.com/nescalante/knockout.contextmenu/issues
    License: MIT */
@@ -6,15 +6,17 @@
 (function (undefined) {
 'use strict';
 
-if (typeof ko !== undefined + '' && typeof document !== undefined + '') {
-  bindContextMenu(ko, document);
+// client
+if (typeof ko !== undefined + '') {
+  bindContextMenu(ko);
 }
 
-if (typeof module !== undefined + '' && module.exports) {
-  module.exports = bindContextMenu;
+// node
+if (typeof module !== undefined + '' && module.exports && typeof require !== undefined + '') {
+  bindContextMenu(require('knockout'));
 }
 
-function bindContextMenu(ko, document) {
+function bindContextMenu(ko) {
   var currentMenu;
   var elementMapping = [];
   var utils = ko.utils;
