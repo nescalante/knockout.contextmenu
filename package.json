@@ -47,5 +47,8 @@
     "knockout": "~3.1.0",
     "load-grunt-tasks": "~0.6.0",
     "phantom": "^2.1.1"
+  },
+  "peerDependencies": {
+    "knockout": ">= 2.0.0"
   }
 }

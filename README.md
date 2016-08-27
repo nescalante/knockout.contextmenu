@@ -12,6 +12,14 @@ npm install knockout.contextmenu --save
 bower install knockout.contextmenu
 ```
 
+# With `npm`
+
+Just do:
+
+```js
+require('knockout.contextmenu');
+```
+
 # Usage
 
 To bind a context menu to an element:
@@ -82,3 +90,7 @@ var menu = ko.observableArray([{ text: 'Item 1', action: doSomething }, { text: 
 ```html
 <td data-bind="contextMenu: menu">
 ```
+
+# License
+
+MIT
