@@ -1,15 +1,25 @@
-(function (undefined) {
-'use strict';
+/* knockout.contextmenu v0.4.4
+   Nicolás Escalante - nlante@gmail.com
+   Issues: https://github.com/nescalante/knockout.contextmenu/issues
+   License: MIT */
+(function (factory) {
+  'use strict';
 
-if (typeof ko !== undefined + '' && typeof document !== undefined + '') {
-  bindContextMenu(ko, document);
+  //if (define !== undefined && typeof define === 'function' && define.amd) {
+  //  // AMD. Register as an anonymous module.
+  //  define(['knockout'], factory);
+  //} else
+
+  if (typeof module !== undefined + '' && module.exports) {
+    factory = module.exports || exports;  // module.exports is for Node.js
+  } else {
+    // Browser globals
+    factory(ko);
+  }
 }
 
-if (typeof module !== undefined + '' && module.exports) {
-  module.exports = bindContextMenu;
-}
-
-function bindContextMenu(ko, document) {
+(function (ko) {
+  'use strict';
   var currentMenu;
   var elementMapping = [];
   var utils = ko.utils;
@@ -147,8 +157,8 @@ function bindContextMenu(ko, document) {
         var items = [];
         var props = Object.keys(
           ko.isObservable(eventsToHandle) ?
-          eventsToHandle() :
-          eventsToHandle
+            eventsToHandle() :
+            eventsToHandle
         );
 
         props.forEach(function (eventNameOutsideClosure) {
@@ -242,13 +252,13 @@ function bindContextMenu(ko, document) {
         var id = item.id;
         var url = (isObservable(item.url) ? item.url() : item.url);
         var isVisible = item.visible === undefined || item.visible === null ||
-            (isObservable(item.visible) && item.visible()) ||
-            (!isObservable(item.visible) && !!item.visible);
+          (isObservable(item.visible) && item.visible()) ||
+          (!isObservable(item.visible) && !!item.visible);
         var isChecked = false;
         var isEnabled = !item.disabled ||
-            (isObservable(item.disabled) && !item.disabled()) ||
-            (isObservable(item.enabled) && item.enabled()) ||
-            (!isObservable(item.enabled) && !!item.enabled);
+          (isObservable(item.disabled) && !item.disabled()) ||
+          (isObservable(item.enabled) && item.enabled()) ||
+          (!isObservable(item.enabled) && !!item.enabled);
         var isBoolean = false;
         var isDisabled = !isEnabled;
         var isSeparator = !!currentEvent.separator;
@@ -354,4 +364,4 @@ function bindContextMenu(ko, document) {
     }
   }
 }
-})();
+));
