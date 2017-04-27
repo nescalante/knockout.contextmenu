@@ -1,4 +1,4 @@
-# knockout.contextmenu [![Build Status](https://travis-ci.org/nescalante/knockout.contextmenu.svg?branch=master)](https://travis-ci.org/nescalante/knockout.contextmenu)
+# knockout.contextmenu [![Build Status](https://travis-ci.org/nescalante/knockout.contextmenu.svg?branch=master)](https://travis-ci.org/nescalante/knockout.contextmenu) [![Greenkeeper badge](https://badges.greenkeeper.io/nescalante/knockout.contextmenu.svg)](https://greenkeeper.io/)
 
 > Contextual menu, anywhere you need it
 
