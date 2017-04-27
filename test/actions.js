@@ -59,10 +59,10 @@ describe('menu basics', function () {
   });
 
   it('should run action on click', function () {
+    var applied = false;
     var source = applyMenu({
         'do something': function () { applied = true; },
       });
-    var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var item = menu.element.children[0].children[0];
 
@@ -80,6 +80,7 @@ describe('menu basics', function () {
   });
 
   it('should ensure alternative way action binding', function () {
+    var applied = false;
     var source = applyMenu({
         doSomething: {
           action: function () { applied = true; },
@@ -87,7 +88,6 @@ describe('menu basics', function () {
           text: 'some title',
         },
       });
-    var applied = false;
     var menu = ko.utils.contextMenu.openMenuFor(source.element);
     var item = menu.element.children[0].children[0];
 
@@ -160,8 +160,9 @@ describe('menu basics', function () {
   it('shouldn\'t fail if menu is empty', function () {
     var items = ko.observableArray([]);
     var source = applyMenu(items);
+    var menu = ko.utils.contextMenu.openMenuFor(source.element);
 
-    ko.utils.contextMenu.openMenuFor(source.element);
+    expect(menu.items.length).toBe(0);
   });
 
   function getBasicMenu() {
