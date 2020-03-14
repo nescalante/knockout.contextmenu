@@ -154,7 +154,7 @@ function bindContextMenu(ko) {
         );
 
         props.forEach(function (eventNameOutsideClosure) {
-          pushItem(eventNameOutsideClosure,eventsToHandle,elements,items,actions);
+          pushItem(eventNameOutsideClosure, eventsToHandle, elements, items, actions);
         });
 
         if (elements.length) {
@@ -177,8 +177,9 @@ function bindContextMenu(ko) {
               if (!result && event) {
                 event.preventDefault();
               }
-            });
-            if(items[index].hasSubmenu){
+            }
+            );
+            if (items[index].hasSubmenu) {
               var submenu = menu.children[0].children[index].children[1];
               items[index].submenu.elements.forEach(function (item, subindex) {
                 registerEvent(submenu.children[subindex], 'click', function (event) {
@@ -190,7 +191,8 @@ function bindContextMenu(ko) {
                 });
               });
             }
-          });
+          }
+          );
         }
 
         return {
@@ -207,8 +209,9 @@ function bindContextMenu(ko) {
         };
 
       }
-      function pushItem(eventName,eventsToHandle,elements,items,actions) {
-        var item = getMenuProperties(eventName,eventsToHandle);
+
+      function pushItem(eventName, eventsToHandle, elements, items, actions) {
+        var item = getMenuProperties(eventName, eventsToHandle);
         var classes = [];
         var id = '';
         var liHtml;
@@ -230,6 +233,7 @@ function bindContextMenu(ko) {
           if (item.isSeparator) {
             classes.push('separator');
           }
+
           if (item.hasSubmenu) {
             classes.push('has-submenu');
           }
@@ -249,7 +253,7 @@ function bindContextMenu(ko) {
         }
       }
 
-      function getMenuProperties(eventName,eventsToHandle) {
+      function getMenuProperties(eventName, eventsToHandle) {
         var text = '';
         var html = '';
         var currentEvent = ko.isObservable(eventsToHandle) ?
@@ -277,7 +281,8 @@ function bindContextMenu(ko) {
           if (!text) {
             text = eventName;
           }
-          if (hasSubmenu){
+
+          if (hasSubmenu) {
             var props = Object.keys(
               ko.isObservable(currentEvent.submenu) ?
               currentEvent.submenu() :
@@ -288,14 +293,15 @@ function bindContextMenu(ko) {
             submenu.items = [];
 
             props.forEach(function (eventNameOutsideClosure) {
-              pushItem(eventNameOutsideClosure,currentEvent.submenu,submenu.elements,submenu.items,submenu.actions);
+              pushItem(eventNameOutsideClosure,
+                currentEvent.submenu,
+                submenu.elements, submenu.items, submenu.actions);
             });
 
             html = '<a>' + text + '</a><ul class="submenu">' +
             submenu.elements.join('') +
             '</ul>';
-          }
-          else if (url) {
+          } else if (url) {
             html = '<a href="' + url + '">' + text + '</a>';
           } else {
             html = text;
@@ -324,8 +330,8 @@ function bindContextMenu(ko) {
           isBoolean: isBoolean,
           isSeparator: isSeparator,
           action: action,
-          hasSubmenu:hasSubmenu,
-          submenu:submenu,
+          hasSubmenu: hasSubmenu,
+          submenu: submenu,
         };
 
         function action(viewModel, event) {
