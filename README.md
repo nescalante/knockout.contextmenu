@@ -48,6 +48,7 @@ Option     | Description
 `visible`  | Show/hide item (result must be boolean).
 `action`   | Item method, mandatory if not url defined.
 `disabled` | Disable menu item.
+`submenu`  | Sub menu items.
 
 Example:
 
