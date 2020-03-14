@@ -188,7 +188,7 @@ function bindContextMenu(ko) {
                     event.preventDefault();
                   }
                 });
-              })
+              });
             }
           });
         }
@@ -291,8 +291,7 @@ function bindContextMenu(ko) {
               pushItem(eventNameOutsideClosure,currentEvent.submenu,submenu.elements,submenu.items,submenu.actions);
             });
 
-            html = '<a>' + text + '</a> \
-            <ul class="submenu">' +
+            html = '<a>' + text + '</a><ul class="submenu">' +
             submenu.elements.join('') +
             '</ul>';
           }
