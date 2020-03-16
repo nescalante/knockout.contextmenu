@@ -11,9 +11,16 @@
     var menu = {
       'Option one': function() { alert('oh, you clicked me'); },
       'Option two': { action: function() { alert('you are on fire'); } },
+      'Option 3': { action: function() { alert('you are on fire'); } },
       'a separator': { separator: true },
+      'Sub menu': { submenu: {
+        'Sub Option one': function() { alert('submenu,oh, you clicked me'); },
+        'Sub Option two': { action: function() { alert('submenu,you are on fire'); } }  
+      } },
       'Some boolean': ko.observable(true),
-      'Option three': { text: 'Final action', action: function() { /* nothing to do */ } }
+      '2ed separator': { separator: true },
+      'Option 4': { action: function() { alert('you are on fire'); } },
+      'Option three': { text: 'Final action', action: function() { /* nothing to do */ } },
     };
 
     ko.applyBindings({});

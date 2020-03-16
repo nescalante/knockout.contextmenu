@@ -48,6 +48,7 @@ Option     | Description
 `visible`  | Show/hide item (result must be boolean).
 `action`   | Item method, mandatory if not url defined.
 `disabled` | Disable menu item.
+`submenu`  | Sub menu items.
 
 Example:
 
@@ -58,6 +59,12 @@ Example:
         "visible": someMethod() == '1', 
         "action": $root.someAction 
     }, 
+    "Sub menu": {
+        submenu: {
+            "Sub Option one": function() { alert("submenu,oh, you clicked me"); },
+            "Sub Option two": { action: function() { alert("submenu,you are on fire"); } }
+        }
+    },
     "One method": $root.test
 }
 ```

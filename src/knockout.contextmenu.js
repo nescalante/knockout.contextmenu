@@ -154,12 +154,15 @@ function bindContextMenu(ko) {
         );
 
         props.forEach(function (eventNameOutsideClosure) {
-          pushItem(eventNameOutsideClosure);
+          pushItem(eventNameOutsideClosure, eventsToHandle, elements, items, actions);
         });
 
         if (elements.length) {
           menu = document.createElement('div');
           menu.className = defaultClass;
+          items.forEach(function (item) {
+            hasChecks = hasChecks || (item.isBoolean && item.isVisible);
+          });
 
           // you may need padding to menus that has checks
           menu.innerHTML = '<ul class="' + (hasChecks ? 'has-checks' : '') + '">' +
@@ -174,8 +177,22 @@ function bindContextMenu(ko) {
               if (!result && event) {
                 event.preventDefault();
               }
-            });
-          });
+            }
+            );
+            if (items[index].hasSubmenu) {
+              var submenu = menu.children[0].children[index].children[1];
+              items[index].submenu.elements.forEach(function (item, subindex) {
+                registerEvent(submenu.children[subindex], 'click', function (event) {
+                  var result = items[index].submenu.actions[subindex](viewModel, event);
+
+                  if (!result && event) {
+                    event.preventDefault();
+                  }
+                });
+              });
+            }
+          }
+          );
         }
 
         return {
@@ -191,50 +208,52 @@ function bindContextMenu(ko) {
           },
         };
 
-        function pushItem(eventName) {
-          var item = getMenuProperties(eventName);
-          var classes = [];
-          var id = '';
-          var liHtml;
+      }
 
-          if (item.isVisible) {
-            hasChecks = hasChecks || item.isBoolean;
+      function pushItem(eventName, eventsToHandle, elements, items, actions) {
+        var item = getMenuProperties(eventName, eventsToHandle);
+        var classes = [];
+        var id = '';
+        var liHtml;
 
-            if (item.id) {
-              id = item.id;
-            }
-
-            // set css classes
-            if (item.isChecked) {
-              classes.push('checked');
-            }
-
-            if (item.isDisabled) {
-              classes.push('disabled');
-            }
-
-            if (item.isSeparator) {
-              classes.push('separator');
-            }
-
-            if (item.url) {
-              classes.push('with-url');
-            }
-
-            liHtml = '<li ' + (id ? ('id="' + id + '" ') : '') +
-              ' class="' + classes.join(' ') + '">' +
-              item.html +
-              '</li>';
-
-            elements.push(liHtml);
-            actions.push(item.action);
+        if (item.isVisible) {
+          if (item.id) {
+            id = item.id;
           }
 
+          // set css classes
+          if (item.isChecked) {
+            classes.push('checked');
+          }
+
+          if (item.isDisabled) {
+            classes.push('disabled');
+          }
+
+          if (item.isSeparator) {
+            classes.push('separator');
+          }
+
+          if (item.hasSubmenu) {
+            classes.push('has-submenu');
+          }
+
+          if (item.url) {
+            classes.push('with-url');
+          }
+
+          liHtml = '<li ' + (id ? ('id="' + id + '" ') : '') +
+            ' class="' + classes.join(' ') + '">' +
+            item.html +
+            '</li>';
+
+          elements.push(liHtml);
+          actions.push(item.action);
           items.push(item);
         }
       }
 
-      function getMenuProperties(eventName) {
+      function getMenuProperties(eventName, eventsToHandle) {
         var text = '';
         var html = '';
         var currentEvent = ko.isObservable(eventsToHandle) ?
@@ -254,7 +273,8 @@ function bindContextMenu(ko) {
         var isBoolean = false;
         var isDisabled = !isEnabled;
         var isSeparator = !!currentEvent.separator;
-
+        var hasSubmenu = !!currentEvent.submenu;
+        var submenu = {};
         if (!isSeparator) {
           text = isObservable(item.text) ? item.text() : item.text;
 
@@ -262,7 +282,26 @@ function bindContextMenu(ko) {
             text = eventName;
           }
 
-          if (url) {
+          if (hasSubmenu) {
+            var props = Object.keys(
+              ko.isObservable(currentEvent.submenu) ?
+              currentEvent.submenu() :
+              currentEvent.submenu
+            );
+            submenu.elements = [];
+            submenu.actions = [];
+            submenu.items = [];
+
+            props.forEach(function (eventNameOutsideClosure) {
+              pushItem(eventNameOutsideClosure,
+                currentEvent.submenu,
+                submenu.elements, submenu.items, submenu.actions);
+            });
+
+            html = '<a>' + text + '</a><ul class="submenu">' +
+            submenu.elements.join('') +
+            '</ul>';
+          } else if (url) {
             html = '<a href="' + url + '">' + text + '</a>';
           } else {
             html = text;
@@ -291,6 +330,8 @@ function bindContextMenu(ko) {
           isBoolean: isBoolean,
           isSeparator: isSeparator,
           action: action,
+          hasSubmenu: hasSubmenu,
+          submenu: submenu,
         };
 
         function action(viewModel, event) {
@@ -308,7 +349,7 @@ function bindContextMenu(ko) {
           // is an object? well, lets check it properties
           else if (typeof item === 'object') {
             // check if has an action or if its a separator
-            if (!item.action && !url && !isSeparator) {
+            if (!item.action && !url && !isSeparator && !hasSubmenu) {
               throw error;
             }
 
